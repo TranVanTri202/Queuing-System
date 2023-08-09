@@ -1,0 +1,45 @@
+.navtop {
+  display: flex;
+  justify-content: space-between;
+}
+.heading-navtop span {
+  font-weight: bold;
+  font-size: 20px;
+  font-family: "Nunito Sans", sans-serif;
+}
+.heading-navtop span:first-child,
+.heading-navtop i {
+  color: #7e7d88;
+  margin-right: 20px;
+}
+.heading-navtop span:last-child {
+  color: #ff7506;
+}
+.notification-avatar {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  font-family: "Nunito Sans", sans-serif;
+  margin-right: 50px;
+}
+.notification-avatar .notifi {
+  margin-right: 30px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.infomation {
+  display: flex;
+  cursor: pointer;
+}
+.infomation .info span {
+  color: #7e7d88;
+  font-size: 12px;
+}
+.infomation .info h3 {
+  font-weight: 700;
+  font-size: 16px;
+}
+.infomation .avatar {
+  margin-right: 10px;
+}

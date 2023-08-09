@@ -1,0 +1,72 @@
+/* menu */
+.menu {
+  width: 200px;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+.logo-dashboard img {
+  width: 80px;
+  height: 64px;
+}
+.logo-dashboard {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.content {
+  flex: 1;
+  background-color: #f6f6f6;
+}
+.link-style {
+  text-decoration: none;
+}
+
+.list-menu ul {
+  margin-top: 50px;
+}
+.list-menu ul li {
+  padding: 10px 0px;
+  padding-left: 30px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #7e7d88;
+  margin: 5px 0;
+}
+.list-menu ul .active,
+.list-menu ul .active:hover {
+  background-color: #ff7506;
+  color: #ffffff;
+}
+.list-menu ul li:hover {
+  background-color: #fff2e7;
+  color: #ff7506;
+}
+.logout {
+  position: absolute;
+  bottom: 10%;
+  left: 8%;
+}
+
+.logout button {
+  color: #ff7506;
+  background-color: #fff2e7;
+  border: none;
+  padding: 12px 45px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-family: "Nunito Sans", sans-serif;
+  cursor: pointer;
+}
+.logout i {
+  color: #ff7506;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.list-menu ul li {
+  display: flex;
+  gap: 11px;
+}

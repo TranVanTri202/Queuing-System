@@ -1,0 +1,82 @@
+.logo-media img {
+  width: 170px;
+  height: 136px;
+  text-align: center;
+}
+.logo-media {
+  margin: 100px 0 30px 0;
+  text-align: center;
+}
+.userName span,
+.password span {
+  font-size: 17px;
+  font-weight: 400;
+  color: #37474f;
+}
+.userName input,
+.password input {
+  border-radius: 7px;
+  width: 400px;
+  height: 35px;
+  outline: none;
+  border: 1px solid gray;
+  margin-top: 10px;
+  font-size: 100%;
+  padding-left: 10px;
+}
+.userName,
+.password {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  position: relative;
+}
+.password .forgot-password {
+  color: #e73f3f;
+  display: block;
+  font-size: 14px;
+  margin-top: 8px;
+  font-weight: 400;
+  cursor: pointer;
+}
+.btn-login {
+  text-align: center;
+  margin-top: 20px;
+}
+.btn-login button {
+  color: #ffffff;
+  background-color: #ff9138;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.banner .img1 {
+  position: absolute;
+  top: 10%;
+  width: 605px;
+  height: 614px;
+  left: 10%;
+}
+.banner span {
+  font-size: 34px;
+  color: #ff7506;
+  position: absolute;
+  left: 55%;
+  bottom: 45%;
+  font-weight: 300;
+}
+.banner .img2 {
+  font-size: 36px;
+  position: absolute;
+  left: 55%;
+  bottom: 37%;
+}
+.password .icon-eye {
+  position: absolute;
+  top: 45%;
+  right: 22%;
+  cursor: pointer;
+}
