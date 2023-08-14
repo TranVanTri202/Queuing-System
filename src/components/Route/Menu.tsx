@@ -1,19 +1,24 @@
 import { useState } from "react";
 import logo from "../../assets/imgs/Logoalta.png";
 import "../../assets/styles/menu.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import IconDashboard from "../../assets/imgs/IconDashboard";
 import IconMonitor from "../../assets/imgs/IconMonitor";
 import IconChat from "../../assets/imgs/Iconchat";
 import IconCapso from "../../assets/imgs/IconCapso";
 import IconSetting from "../../assets/imgs/IconSetting";
 const Menu = () => {
+  const navigate = useNavigate();
+
   const [activeItem, setActiveItem] = useState<number | null>(0);
   const [activeIcon, setActiveIcon] = useState<number>(0);
 
   const handleItemClick = (index: number) => {
     setActiveItem(index);
     setActiveIcon(index);
+  };
+  const handleLogout = () => {
+    navigate("/");
   };
   return (
     <>
@@ -79,7 +84,7 @@ const Menu = () => {
         </ul>
       </div>
       <div className="logout">
-        <button>
+        <button onClick={handleLogout}>
           <i className="bi bi-box-arrow-right"></i>
           Đăng xuất
         </button>

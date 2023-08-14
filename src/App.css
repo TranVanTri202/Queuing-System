@@ -11,9 +11,86 @@
 /* content */
 
 .content {
-  padding: 20px 20px;
+  padding: 20px 0 20px 20px;
+}
+.heading-text {
+  font-family: "Nunito Sans", sans-serif;
+  margin-top: 20px;
+  color: #ff7506;
+}
+.table-left {
+  width: 1200px;
+}
+.search-table-add {
+  display: flex;
+  justify-content: space-between;
+}
+.search {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.search-left {
+  display: flex;
+  gap: 20px;
+}
+.search-left .item-1 select,
+.search-left .item-2 select {
+  width: 290px;
+  height: 38px;
+  outline: none;
+  border: 2px solid #d4d4d7;
+  border-radius: 8px;
+  font-size: 100%;
+  padding-left: 10px;
+  margin-top: 8px;
+}
+.search-left .item-1 label,
+.search-left .item-2 label,
+.search-right {
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Nunito Sans", sans-serif;
 }
 
+.search-right .input-search input {
+  outline: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  width: 240px;
+  height: 38px;
+  font-size: 100%;
+}
+.search-right .input-search i {
+  color: #ff7506;
+}
+.search-right .input-search {
+  background-color: #fff;
+  width: 290px;
+  height: 38px;
+  border: 2px solid #d4d4d7;
+  border-radius: 8px;
+  font-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  margin-top: 8px;
+}
+.add-btn {
+  margin-top: 100px;
+  cursor: pointer;
+}
+.addData {
+  width: 1220px;
+  height: 480px;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 10px 20px;
+  font-family: "Nunito Sans", sans-serif;
+}
 /* loginPage */
 .login-page {
   display: flex;

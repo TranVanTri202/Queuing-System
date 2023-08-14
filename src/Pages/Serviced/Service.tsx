@@ -1,15 +1,16 @@
 import iconNotification from "../../assets/imgs/iconNotification.png";
 import avatars from "../../assets/imgs/avatar.png";
 import { Link } from "react-router-dom";
-
-const Service = () => {
+import TableData from "./TableData";
+import btnAdd from "../../assets/imgs/btnAdd.png";
+const Device = () => {
   return (
     <>
       <div className="navtop">
         <div className="heading-navtop">
-          <span>Dịch vụ</span>
+          <span>Thiết bị</span>
           <i className="bi bi-chevron-right"></i>
-          <span>Danh sách Dịch vụ</span>
+          <span>Danh sách thiết bị</span>
         </div>
         <div className="notification-avatar">
           <img src={iconNotification} className="notifi" alt="" />
@@ -27,8 +28,47 @@ const Service = () => {
           </Link>
         </div>
       </div>
+      <h2 className="heading-text">Danh sách thiết bị</h2>
+      <div className="search-table-add">
+        <div className="table-left">
+          <div className="search">
+            <div className="search-left">
+              <div className="item-1">
+                <label htmlFor="">Trạng thái hoạt động</label> <br />
+                <select name="" id="">
+                  <option value="">Tất cả</option>
+                  <option value="">Hoạt động</option>
+                  <option value="">Ngưng hoạt động</option>
+                </select>
+              </div>
+              <div className="item-2">
+                <label htmlFor="">Chọn thời gian</label> <br />
+                <div className="input-time"></div>
+              </div>
+            </div>
+            <div className="search-right">
+              <label htmlFor="">Từ khóa</label>
+              <br />
+              <div className="input-search">
+                <input type="text" placeholder="Nhập từ khóa" />
+                <i className="bi bi-search"></i>
+              </div>
+            </div>
+          </div>
+          <div className="table-data">
+            {/* table */}
+            <TableData />
+            {/* table */}
+          </div>
+        </div>
+        <div>
+          <Link to="/addDataService">
+            <img className="add-btn" src={btnAdd} alt="" />
+          </Link>
+        </div>
+      </div>
     </>
   );
 };
 
-export default Service;
+export default Device;

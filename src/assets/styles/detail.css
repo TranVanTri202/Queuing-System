@@ -1,0 +1,41 @@
+.detail {
+  width: 1220px;
+  height: 550px;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 10px 20px;
+  font-family: "Nunito Sans", sans-serif;
+}
+.search-table-add-detail {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.search-table-add-detail .add-btn-detail .icon-detail {
+  cursor: pointer;
+}
+.detail h3 {
+  font-family: "Nunito Sans", sans-serif;
+  color: #ff7506;
+}
+
+.info-detail {
+  margin-top: 20px;
+  display: flex;
+  gap: 400px;
+}
+.info-detail label {
+  font-weight: 600;
+  font-family: "Nunito Sans", sans-serif;
+  margin-right: 30px;
+  margin-top: 40px;
+  line-height: 45px;
+}
+.info-detail span {
+  font-family: "Nunito Sans", sans-serif;
+  margin-top: 40px;
+}
+.detail h4 {
+  margin-top: 8px;
+  margin-bottom: 13px;
+}

@@ -1,0 +1,102 @@
+.input-row1-add,
+.input-row2-add,
+.input-row3-add {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.input-row1-add label,
+.input-row2-add label,
+.input-row3-add label,
+.input-row4-add label {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.input-row1-add input,
+.input-row2-add input,
+.input-row3-add input {
+  display: block;
+  background-color: transparent;
+  outline: none;
+  border: 2px solid #d4d4d7;
+  width: 580px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 100%;
+  padding-left: 10px;
+  margin-top: 8px;
+}
+.addData h2 {
+  color: #ff7506;
+}
+
+.input-info-add .dausao {
+  color: #ff7506;
+  font-weight: 600;
+  margin-left: 8px;
+  font-size: 15px;
+}
+.input-row4-add input {
+  display: block;
+  background-color: transparent;
+  outline: none;
+  border: 2px solid #d4d4d7;
+  width: calc(100% - 15px);
+  height: 40px;
+  border-radius: 8px;
+  font-size: 100%;
+  padding-left: 10px;
+  margin-top: 8px;
+}
+.input-row4-add {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.lableth {
+  font-size: 14px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.btn-footer .btn button:first-child {
+  color: #ff9138;
+  border: 1px solid #ff9138;
+  background-color: #fff2e7;
+}
+.btn-footer .btn button:last-child {
+  color: #fff;
+  background-color: #ff9138;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.username-input-add textarea {
+  margin-top: 10px;
+  outline: none;
+  border-radius: 8px;
+  border: 2px solid #d4d4d7;
+  font-size: 100%;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.quitat {
+  display: flex;
+  gap: 20px;
+}
+.quitat .input-choose input {
+  height: 17px;
+  width: 17px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.quitat button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: transparent;
+  border: 1px solid #d4d4d7;
+  padding: 7px 20px;
+}

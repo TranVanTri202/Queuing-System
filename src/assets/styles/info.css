@@ -23,6 +23,15 @@
 }
 .avatar-name {
   margin-top: 20px;
+  position: relative;
+}
+.avatar-name .camera {
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  bottom: 30%;
+  right: 5%;
+  cursor: pointer;
 }
 .input-info {
   margin-left: 30px;

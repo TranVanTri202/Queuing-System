@@ -1,0 +1,35 @@
+table {
+  font-family: "Nunito Sans", sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 12px;
+}
+
+td,
+th {
+  border: 1px solid #ffffff; /* Đổi màu viền thành trắng (#ffffff) */
+  text-align: left;
+  padding: 8px;
+  font-size: 15px;
+}
+th {
+  font-weight: 700;
+}
+
+tr:nth-child(even) {
+  background-color: #fff2e7;
+}
+tr:nth-child(odd) {
+  background-color: #fff;
+}
+table th {
+  background-color: #ff9138;
+  color: #fff;
+  font-size: 15px;
+}
+table thead tr {
+  line-height: 35px;
+}
+table tbody tr {
+  line-height: 30px;
+}

@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchDataAcount } from "../../redux/Slice/AccountSlice";
-
+import imgCamera from "../../assets/imgs/Camera.png";
 const Information = () => {
   const dispatch: AppDispatch = useDispatch();
   const dataAccount = useSelector(
@@ -40,6 +40,7 @@ const Information = () => {
       <div className="form-info">
         <div className="avatar-name">
           <img src={avatar} alt="" />
+          <img className="camera" src={imgCamera} alt="" />
           <h3>{dataAccount.map((item) => item.name)}</h3>
         </div>
         <div className="input-info">

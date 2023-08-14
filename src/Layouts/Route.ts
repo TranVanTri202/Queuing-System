@@ -7,22 +7,27 @@ import Device from "../Pages/Device/Device";
 import Announce from "../Pages/Announce/Announce";
 import Provide from "../Pages/Provide/ProvideNumber";
 import Information from "../Pages/Information/Information";
-export const RouteLogin = [
+import DetailDevice from "../Pages/Device/DetailDevice";
+import AddDataDevice from "../Pages/Device/AddDataDevice";
+import UpdateData from "../Pages/Device/UpdateData";
+import AddDataService from "../Pages/Serviced/AddData";
+export const RoutePages = [
   {
     path: "/",
     component: Login,
+    route: "login",
   },
+
   {
     path: "/forgotPassword",
     component: ForgotPassword,
+    route: "login",
   },
   {
     path: "/NewPassword",
     component: Newpassword,
+    route: "login",
   },
-];
-
-export const RouteAdmin = [
   {
     path: "/home",
     component: Home,
@@ -46,5 +51,21 @@ export const RouteAdmin = [
   {
     path: "/infomation",
     component: Information,
+  },
+  {
+    path: "device/detail/:id",
+    component: DetailDevice,
+  },
+  {
+    path: "/addDataDevice",
+    component: AddDataDevice,
+  },
+  {
+    path: "/addDataService",
+    component: AddDataService,
+  },
+  {
+    path: "/updateData",
+    component: UpdateData,
   },
 ];

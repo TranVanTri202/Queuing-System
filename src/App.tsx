@@ -1,30 +1,26 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { RouteAdmin } from "./Layouts/Route";
+import { RoutePages } from "./Layouts/Route";
 import DefaultLayouts from "./Layouts/DefaultLayout";
+import PageNotFound from "./Pages/404/Page404";
+import DefaultLatoutLogin from "./Layouts/DefaultLayoutLogin";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        {/* {RouteLogin.map((item, index) => {
-          return (
-            <Route key={index} path={item.path} element={<item.component />} />
-          );
-        })} */}
-        {RouteAdmin.map((item, index) => {
+        {RoutePages.map((item, index) => {
+          const LayoutComponent =
+            item.route === "login" ? DefaultLatoutLogin : DefaultLayouts;
+
           return (
             <Route
-              key={index}
+              key={item.path}
               path={item.path}
-              element={
-                <DefaultLayouts>
-                  {" "}
-                  <item.component />{" "}
-                </DefaultLayouts>
-              }
+              element={<LayoutComponent>{<item.component />}</LayoutComponent>}
             />
           );
         })}
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
   );
