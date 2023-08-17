@@ -1,34 +1,43 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../assets/styles/addData.css";
-import { useState } from "react";
-import { ServiceType, addService } from "../../redux/Slice/ServiceSlice";
-import { AppDispatch } from "../../redux/store";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import {
+  ServiceType,
+  fetchDataService,
+  updateService,
+} from "../../redux/Slice/ServiceSlice";
+import { AppDispatch, RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import Navtop from "../../components/Route/Navtop";
-const AddDataService = () => {
+const UpdateDataService = () => {
   const dispatch: AppDispatch = useDispatch();
-  const navigate = useNavigate();
-  const [dataInfo, setDataInfo] = useState<ServiceType>({
+  const data = useSelector((state: RootState) => state.Service.dataDevice);
+  const { id } = useParams();
+  const [service, setService] = useState<ServiceType>({
     maDichvu: "",
     tenDichvu: "",
     trangThai: "Hoạt động",
     moTa: "",
   });
-  const handleAdd = async () => {
-    await dispatch(addService(dataInfo));
+  useEffect(() => {
+    const update = data.find((item) => item.id === id);
+    setService(update!);
+    dispatch(fetchDataService());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, id]);
+
+  const navigate = useNavigate();
+  const handleUpdate = () => {
+    dispatch(updateService(service));
     navigate("/service");
   };
-
-  const handleInputChange = (field: string, value: string) => {
-    setDataInfo({ ...dataInfo, [field]: value });
-  };
-
   return (
     <div className="main">
       <Navtop
         labelFirst="Dịch vụ"
         lableSecond="Danh sách dịch vụ"
-        labelThird="Thêm dịch vụ"
+        labelThird="Cập nhật dịch vụ"
       />
       <h2 className="heading-text">Quản lí dịch vụ</h2>
       <div className="search-table-add-detail">
@@ -41,28 +50,39 @@ const AddDataService = () => {
                 <span className="dausao">*</span>
                 <input
                   type="text"
+                  value={service?.maDichvu}
                   onChange={(e) =>
-                    handleInputChange("maDichvu", e.target.value)
+                    setService((prev) => ({
+                      ...prev,
+                      maDichvu: e.target.value,
+                    }))
                   }
                 />
                 <label htmlFor="">Tên dịch vụ:</label>
                 <span className="dausao">*</span>
                 <input
-                  type="text"
+                  value={service?.tenDichvu}
                   onChange={(e) =>
-                    handleInputChange("tenDichvu", e.target.value)
+                    setService((prev) => ({
+                      ...service,
+                      tenDichvu: e.target.value,
+                    }))
                   }
+                  type="text"
                 />
               </div>
               <div className="username-input-add">
                 <label htmlFor="">Mô tả:</label>
                 <span className="dausao">*</span> <br />
                 <textarea
+                  value={service?.moTa}
+                  onChange={(e) =>
+                    setService((prev) => ({ ...service, moTa: e.target.value }))
+                  }
                   name=""
                   id=""
                   cols={70}
                   rows={7}
-                  onChange={(e) => handleInputChange("moTa", e.target.value)}
                 />
               </div>
             </div>
@@ -107,8 +127,8 @@ const AddDataService = () => {
             {" "}
             <button>Hủy bỏ</button>
           </Link>
-          <button onClick={handleAdd} className="btn-login">
-            Thêm thiết bị
+          <button className="btn-login" onClick={handleUpdate}>
+            Cập nhật
           </button>
         </div>
       </div>
@@ -116,4 +136,4 @@ const AddDataService = () => {
   );
 };
 
-export default AddDataService;
+export default UpdateDataService;

@@ -17,7 +17,7 @@ const Information = () => {
     dispatch(fetchDataAcount());
   }, [dispatch]);
   return (
-    <>
+    <div className="main">
       <div className="navtop">
         <div className="heading-navtop">
           <span>Thông tin cá nhân</span>
@@ -100,7 +100,7 @@ const Information = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

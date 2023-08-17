@@ -1,14 +1,21 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "../../assets/styles/addData.css";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
-import { DeviceType, addDevice } from "../../redux/Slice/DeviceSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { useEffect, useState } from "react";
+import {
+  DeviceType,
+  fetchDataDevice,
+  updateDevice,
+} from "../../redux/Slice/DeviceSlice";
 import Navtop from "../../components/Route/Navtop";
-const AddDataDevice = () => {
+const UpdateDataDevice = () => {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
   const dispatch: AppDispatch = useDispatch();
-  const [deviceInfo, setDeviceInfo] = useState<DeviceType>({
+  const data = useSelector((state: RootState) => state.Device.dataDevice);
+
+  const [dataInfo, setDataInfo] = useState<DeviceType>({
     maThietBi: "",
     tenThietBi: "",
     diaChiIP: "",
@@ -19,14 +26,15 @@ const AddDataDevice = () => {
     tenDangNhap: "",
     matKhau: "",
   });
-
-  const handleAdd = async () => {
-    await dispatch(addDevice(deviceInfo));
+  useEffect(() => {
+    dispatch(fetchDataDevice());
+    const update = data.find((item) => item.id === id);
+    setDataInfo(update!);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, id]);
+  const handleUpdate = () => {
+    dispatch(updateDevice(dataInfo));
     navigate("/device");
-  };
-
-  const handleInputChange = (field: string, value: string) => {
-    setDeviceInfo({ ...deviceInfo, [field]: value });
   };
 
   return (
@@ -34,7 +42,7 @@ const AddDataDevice = () => {
       <Navtop
         labelFirst="Thiết bị"
         lableSecond="Danh sách thiết bị"
-        labelThird="Thêm thiết bị"
+        labelThird="Cập nhật thiết bị"
       />
       <h2 className="heading-text">Quản lí thiết bị</h2>
       <div className="search-table-add-detail">
@@ -43,56 +51,76 @@ const AddDataDevice = () => {
           <div className="input-info-add">
             <div className="input-row1-add">
               <div className="name-input-add">
-                <label htmlFor="">Mã thiết bị</label>{" "}
+                <label htmlFor="">Mã thiết bị:</label>{" "}
                 <span className="dausao">*</span>
                 <input
                   type="text"
+                  value={dataInfo?.maThietBi}
                   onChange={(e) =>
-                    handleInputChange("maThietBi", e.target.value)
+                    setDataInfo((prev) => ({
+                      ...prev,
+                      maThietBi: e.target.value,
+                    }))
                   }
                 />
               </div>
-              <div className="username-input-add">
-                <label htmlFor="">Loại thiết bị</label>
+              <div className="name-input-add">
+                <label htmlFor="">Loại Thiết bị:</label>
                 <span className="dausao">*</span>
                 <input
                   type="text"
+                  value={dataInfo?.loaiThietBi}
                   onChange={(e) =>
-                    handleInputChange("loaiThietBi", e.target.value)
+                    setDataInfo((prev) => ({
+                      ...prev,
+                      loaiThietBi: e.target.value,
+                    }))
                   }
                 />
               </div>
             </div>
             <div className="input-row2-add">
               <div className="name-input-add">
-                <label htmlFor="">Tên thiết bị</label>
+                <label htmlFor="">Tên thiết bị:</label>
                 <span className="dausao">*</span>
                 <input
                   type="text"
+                  value={dataInfo?.tenThietBi}
                   onChange={(e) =>
-                    handleInputChange("tenThietBi", e.target.value)
+                    setDataInfo((prev) => ({
+                      ...prev,
+                      tenThietBi: e.target.value,
+                    }))
                   }
                 />
               </div>
               <div className="username-input-add">
-                <label htmlFor="">Tên đăng nhập</label>
+                <label htmlFor="">Tên đăng nhập:</label>
                 <span className="dausao">*</span>
                 <input
                   type="text"
+                  value={dataInfo?.tenDangNhap}
                   onChange={(e) =>
-                    handleInputChange("tenDangNhap", e.target.value)
+                    setDataInfo((prev) => ({
+                      ...prev,
+                      tenDangNhap: e.target.value,
+                    }))
                   }
                 />
               </div>
             </div>
             <div className="input-row3-add">
               <div className="name-input-add">
-                <label htmlFor="">Địa chỉ IP</label>
+                <label htmlFor="">Địa chỉ IP:</label>
                 <span className="dausao">*</span>
                 <input
                   type="text"
+                  value={dataInfo?.diaChiIP}
                   onChange={(e) =>
-                    handleInputChange("diaChiIP", e.target.value)
+                    setDataInfo((prev) => ({
+                      ...prev,
+                      diaChiIP: e.target.value,
+                    }))
                   }
                 />
               </div>
@@ -101,7 +129,13 @@ const AddDataDevice = () => {
                 <span className="dausao">*</span>
                 <input
                   type="text"
-                  onChange={(e) => handleInputChange("matKhau", e.target.value)}
+                  value={dataInfo?.matKhau}
+                  onChange={(e) =>
+                    setDataInfo((prev) => ({
+                      ...prev,
+                      matKhau: e.target.value,
+                    }))
+                  }
                 />
               </div>
             </div>
@@ -109,7 +143,13 @@ const AddDataDevice = () => {
               <label htmlFor="">Dịch vụ sử dụng</label>
               <input
                 type="text"
-                onChange={(e) => handleInputChange("dichVu", e.target.value)}
+                value={dataInfo?.dichVu}
+                onChange={(e) =>
+                  setDataInfo((prev) => ({
+                    ...prev,
+                    dichVu: e.target.value,
+                  }))
+                }
               />
             </div>
             <div>
@@ -124,10 +164,11 @@ const AddDataDevice = () => {
       <div className="btn-choose">
         <div className="btn">
           <Link to="/device">
+            {" "}
             <button>Hủy bỏ</button>
           </Link>
-          <button onClick={handleAdd} className="btn-login">
-            Thêm thiết bị
+          <button className="btn-login" onClick={handleUpdate}>
+            Cập nhật
           </button>
         </div>
       </div>
@@ -135,4 +176,4 @@ const AddDataDevice = () => {
   );
 };
 
-export default AddDataDevice;
+export default UpdateDataDevice;

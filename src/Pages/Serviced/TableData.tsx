@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect } from "react";
-import { fetchDataService } from "../../redux/Slice/ServiceSlice";
+import { ServiceType, fetchDataService } from "../../redux/Slice/ServiceSlice";
+import { Table } from "antd";
 import { useNavigate } from "react-router-dom";
 
 const TableData = () => {
-  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const dataService = useSelector(
     (state: RootState) => state.Service.dataDevice
@@ -15,40 +15,52 @@ const TableData = () => {
     dispatch(fetchDataService());
   }, [dispatch]);
 
-  const handleDetail = (id: any) => {
-    navigate(`/device/detail/${id}`);
-    console.log(id);
+  const navigate = useNavigate();
+  const handleUpdate = (id: string) => {
+    navigate(`/updateDataService/${id}`);
   };
+
+  const columns = [
+    {
+      title: "Mã dịch vụ",
+      dataIndex: "maDichvu",
+      key: "maDichvu",
+    },
+    {
+      title: "Tên dịch vụ",
+      dataIndex: "tenDichvu",
+      key: "tenDichvu",
+    },
+    {
+      title: "Mô tả",
+      dataIndex: "moTa",
+      key: "moTa",
+    },
+    { title: "Trạng thái", dataIndex: "trangThai", key: "trangThai" },
+    {
+      title: "",
+      key: "details",
+      render: () => <span className="underline">Chi tiết</span>,
+    },
+    {
+      title: "",
+      key: "updates",
+      render: (text: string, record: ServiceType) => (
+        <span onClick={() => handleUpdate(record.id!)} className="underline">
+          Cập nhật
+        </span>
+      ),
+    },
+  ];
+
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Mã dịch vụ</th>
-            <th>Tên dịch vụ</th>
-            <th>Mổ tả</th>
-            <th>Trạng thái hoạt động</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {dataService.map((item, index) => {
-            return (
-              <tr key={index}>
-                <td>{item.maDichvu}</td>
-                <td>{item.tenDichvu}</td>
-                <td>{item.moTa}</td>
-                <td>{item.trangThai}</td>
-                <td>
-                  <span onClick={() => handleDetail(item.id)}>Chi tiết</span>
-                </td>
-                <td>Cập nhật</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table
+        dataSource={dataService}
+        columns={columns}
+        pagination={{ pageSize: 7 }}
+        bordered
+      />
     </div>
   );
 };

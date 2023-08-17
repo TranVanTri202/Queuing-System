@@ -9,8 +9,11 @@ import Provide from "../Pages/Provide/ProvideNumber";
 import Information from "../Pages/Information/Information";
 import DetailDevice from "../Pages/Device/DetailDevice";
 import AddDataDevice from "../Pages/Device/AddDataDevice";
-import UpdateData from "../Pages/Device/UpdateData";
+import UpdateDataDevice from "../Pages/Device/UpdateDataDevice";
 import AddDataService from "../Pages/Serviced/AddData";
+import DetailProvide from "../Pages/Provide/Detail";
+import AddNumber from "../Pages/Provide/AddNumber";
+import UpdateDataService from "../Pages/Serviced/UpdateDataService";
 export const RoutePages = [
   {
     path: "/",
@@ -57,6 +60,10 @@ export const RoutePages = [
     component: DetailDevice,
   },
   {
+    path: "provide/detail/:id",
+    component: DetailProvide,
+  },
+  {
     path: "/addDataDevice",
     component: AddDataDevice,
   },
@@ -65,7 +72,15 @@ export const RoutePages = [
     component: AddDataService,
   },
   {
-    path: "/updateData",
-    component: UpdateData,
+    path: "/provide/addNumber",
+    component: AddNumber,
+  },
+  {
+    path: "/updateDataDevice/:id",
+    component: UpdateDataDevice,
+  },
+  {
+    path: "/updateDataService/:id",
+    component: UpdateDataService,
   },
 ];

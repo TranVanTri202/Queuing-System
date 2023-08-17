@@ -1,15 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import apiFirebase from "../../Firebase/FirebaseConfig";
 
 export interface DeviceType {
-  id: string;
+  id?: string;
   maThietBi: string;
   tenThietBi: string;
   diaChiIP: string;
   tinhTrangHD: string;
   tinhTrangKN: string;
   dichVu: string;
+  loaiThietBi: string;
+  tenDangNhap: string;
+  matKhau: string;
 }
 
 export const fetchDataDevice = createAsyncThunk<DeviceType[]>(
@@ -22,14 +31,20 @@ export const fetchDataDevice = createAsyncThunk<DeviceType[]>(
   }
 );
 
-export const detailDevice = createAsyncThunk<DeviceType, string>(
-  "device/detailDevice",
-  async (id) => {
-    const querySnapDoc = await getDocs(
-      query(collection(apiFirebase, "device"), where("id", "==", id))
-    );
-    const deviceData = querySnapDoc.docs[0].data() as DeviceType;
-    return deviceData;
+export const addDevice = createAsyncThunk(
+  "device/addDevice",
+  async (device: DeviceType) => {
+    const docRef = await addDoc(collection(apiFirebase, "device"), device);
+    return { ...device, id: docRef.id };
+  }
+);
+
+export const updateDevice = createAsyncThunk(
+  "device/updateDevice",
+  async (updatedDevice: any) => {
+    const docRef = doc(collection(apiFirebase, "device"), updatedDevice.id);
+    await updateDoc(docRef, updatedDevice);
+    return updatedDevice;
   }
 );
 
@@ -38,9 +53,16 @@ const Device = createSlice({
   initialState: { dataDevice: [] as DeviceType[] },
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchDataDevice.fulfilled, (state, action) => {
-      state.dataDevice = action.payload;
-    });
+    builder
+      .addCase(fetchDataDevice.fulfilled, (state, action) => {
+        state.dataDevice = action.payload;
+      })
+      .addCase(addDevice.fulfilled, (state, action) => {
+        state.dataDevice = [...state.dataDevice, action.payload];
+      })
+      .addCase(updateDevice.fulfilled, (state, action) => {
+        state.dataDevice = [...state.dataDevice, action.payload];
+      });
   },
 });
 

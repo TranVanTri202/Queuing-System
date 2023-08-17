@@ -1,0 +1,137 @@
+.home {
+  display: flex;
+  height: 100%;
+}
+.homeright {
+  width: 400px;
+  background-color: #fff;
+  padding: 20px 15px;
+}
+.homeleft {
+  flex: 1;
+  padding: 20px 15px;
+}
+
+.home h2 {
+  color: #ff9138;
+  margin-top: 30px;
+}
+.home .homeright h2 {
+  margin-top: 60px;
+}
+.homeright .notification-avatar {
+  float: right;
+  margin-right: 35px;
+}
+
+.box-total {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 18px;
+  margin-top: 20px;
+}
+.box-top,
+.box-bottom {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.total1 {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 12px 10px;
+}
+
+.box-total h3 {
+  font-size: 30px;
+  color: #535261;
+  margin-left: 10px;
+}
+.box-bottom {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.box-total label {
+  font-weight: 700;
+  color: #535261;
+}
+
+.box-bottom button {
+  color: #ff9138;
+  background-color: #ff950126;
+  border: none;
+  font-size: 10px;
+  border-radius: 7px;
+  margin: 0;
+  padding: 0;
+  height: 14px;
+  padding: 3px 5px;
+  margin-right: 5px;
+}
+.box-chart {
+  background-color: #fff;
+  border-radius: 10px;
+  margin-top: 15px;
+  height: 450px;
+  padding: 10px 10px;
+}
+.chart-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.box-chart .label-thongke {
+  font-weight: 700;
+  font-size: 20px;
+}
+.box-chart i {
+  color: #a9a9b0;
+  font-size: 15px;
+}
+
+.box-chart .choose {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.box-chart .choose span {
+  font-weight: 600;
+}
+
+.box-chart .choose select {
+  padding: 10px 10px;
+  border-radius: 9px;
+  outline: none;
+}
+.box-right {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px 10px;
+  border-radius: 12px;
+}
+.box-right .h3-box {
+  font-size: 30px;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.box-right .box1 {
+  color: #ff7506;
+}
+.box-right .label-text {
+  color: #7e7d88;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+.CalendarHome {
+  box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  height: 300px;
+}

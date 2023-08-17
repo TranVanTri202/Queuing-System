@@ -1,17 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/styles/table.css";
-import { fetchDataDevice } from "../../redux/Slice/DeviceSlice";
+import { DeviceType, fetchDataDevice } from "../../redux/Slice/DeviceSlice";
 import { useNavigate } from "react-router-dom";
+import { Table } from "antd";
 
-const TableData = () => {
+interface tableProps {
+  statusActive?: string;
+  statusCornect?: string;
+}
+const TableData: React.FC<tableProps> = ({ statusActive, statusCornect }) => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const dataDevice = useSelector((state: RootState) => state.Device.dataDevice);
-  const hanleUpdate = () => {
-    navigate("/updateData");
-  };
+
+  const filter = dataDevice.filter(
+    (item) =>
+      (statusActive === "Tất cả" || item.tinhTrangHD === statusActive) &&
+      (statusCornect === "Tất cả" || item.tinhTrangKN === statusCornect)
+  );
+
   const handleClick = (id: string) => {
     navigate(`/device/detail/${id}`);
   };
@@ -19,40 +28,83 @@ const TableData = () => {
     dispatch(fetchDataDevice());
   }, [dispatch]);
 
+  const [expandedService, setExpandedService] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  const columns = [
+    { title: "Mã thiết bị", dataIndex: "maThietBi", key: "maThietBi" },
+    { title: "Tên thiết bị", dataIndex: "tenThietBi", key: "tenThietBi" },
+    { title: "Địa chỉ IP", dataIndex: "diaChiIP", key: "diaChiIP" },
+    {
+      title: "Trạng thái hoạt động",
+      dataIndex: "tinhTrangHD",
+      key: "tinhTrangHD",
+    },
+    {
+      title: "Trạng thái kết nối",
+      dataIndex: "tinhTrangKN",
+      key: "tinhTrangKN",
+    },
+    {
+      width: 350,
+      title: "Dịch vụ sử dụng",
+      dataIndex: "dichVu",
+      key: "dichVu",
+      render: (text: string, record: DeviceType) => {
+        const isExpanded = expandedService[record.id!];
+        return (
+          <div>
+            {isExpanded ? text : text.slice(0, 30)}
+            {text.length > 30 && (
+              <span
+                className="underline"
+                onClick={() => {
+                  setExpandedService((prevState) => ({
+                    ...prevState,
+                    [record.id!]: !isExpanded,
+                  }));
+                }}
+              >
+                {isExpanded ? "Thu gọn" : "Xem thêm"}
+              </span>
+            )}
+          </div>
+        );
+      },
+    },
+
+    {
+      title: "",
+      key: "action",
+      render: (text: string, record: DeviceType) => (
+        <span onClick={() => handleClick(record.id!)} className="underline">
+          Chi tiết
+        </span>
+      ),
+    },
+    {
+      title: "",
+      key: "update",
+      render: (text: string, record: DeviceType) => (
+        <span
+          onClick={() => navigate(`/updateDataDevice/${record.id}`)}
+          className="underline"
+        >
+          Cập nhật
+        </span>
+      ),
+    },
+  ];
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Mã thiết bị</th>
-            <th>Tên thiết bị</th>
-            <th>Địa chỉ IP</th>
-            <th>Tình trạng hoạt động</th>
-            <th>Tình trạng kết nối</th>
-            <th>Dịch vụ</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {dataDevice.map((item, index) => {
-            return (
-              <tr>
-                <td>{item.maThietBi}</td>
-                <td>{item.tenThietBi}</td>
-                <td>{item.diaChiIP}</td>
-                <td>{item.tinhTrangHD}</td>
-                <td>{item.tinhTrangKN}</td>
-                <td>{item.dichVu}</td>
-                <td>
-                  <span onClick={() => handleClick(item.id)}>chitiet</span>
-                </td>
-                <td onClick={hanleUpdate}>Cập nhật</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table
+        dataSource={filter}
+        columns={columns}
+        rowKey="id"
+        pagination={{ pageSize: 7 }}
+        bordered
+      />
     </div>
   );
 };

@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import Account from "./Slice/AccountSlice";
 import Device from "./Slice/DeviceSlice";
 import Service from "./Slice/ServiceSlice";
+import ProvideNumber from "./Slice/ProvideNumberSlice";
 const store = configureStore({
   reducer: {
     Account: Account,
     Device: Device,
     Service: Service,
+    Provide: ProvideNumber,
   },
 });
 export default store;
