@@ -1,7 +1,5 @@
-import iconNotification from "../../assets/imgs/iconNotification.png";
-import avatars from "../../assets/imgs/avatar.png";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import btnUpdate from "../../assets/imgs/iconBack.png";
+import { useNavigate, useParams } from "react-router-dom";
+import btnUpdate from "../../assets/imgs/img-icon/iconBack.png";
 import "../../assets/styles/detail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
@@ -10,6 +8,7 @@ import {
   ProvideNumberType,
   fetDataProvideNumber,
 } from "../../redux/Slice/ProvideNumberSlice";
+import Navtop from "../../components/Route/Navtop";
 const DetailProvide = () => {
   const { id } = useParams<{ id: string }>();
   const ditpatch: AppDispatch = useDispatch();
@@ -19,34 +18,17 @@ const DetailProvide = () => {
     const detail = data.find((item) => item.id === id);
     setProvide(detail);
     ditpatch(fetDataProvideNumber());
-  }, [id, data]);
+    console.log("re-render");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ditpatch, id]);
   const navigate = useNavigate();
   return (
     <div className="main">
-      <div className="navtop">
-        <div className="heading-navtop">
-          <span>Thiết bị</span>
-          <i className="bi bi-chevron-right"></i>
-          <span>Danh sách cấp số</span>
-          <i className="bi bi-chevron-right"></i>
-          <span>Chi tiết</span>
-        </div>
-        <div className="notification-avatar">
-          <img src={iconNotification} className="notifi" alt="" />
-
-          <Link to="/infomation" className="link-style">
-            <div className="infomation">
-              <div className="avatar">
-                <img src={avatars} alt="" />
-              </div>
-              <div className="info">
-                <span>Xin chào</span>
-                <h3>Lê Thị Quỳnh Vân</h3>
-              </div>
-            </div>
-          </Link>
-        </div>
-      </div>
+      <Navtop
+        labelFirst="Thiết bị"
+        lableSecond="Danh sách cấp số"
+        labelThird="chi tiết"
+      />
       <h2 className="heading-text">Quản lí cấp số</h2>
       <div className="search-table-add-detail">
         <div className="detail">

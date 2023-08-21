@@ -1,19 +1,30 @@
 import "../../assets/styles/home.css";
-import iconNotification from "../../assets/imgs/iconNotification.png";
-import avatars from "../../assets/imgs/avatar.png";
+import iconNotification from "../../assets/imgs/img-icon/iconNotification.png";
 import { Link } from "react-router-dom";
-import box1 from "../../assets/imgs/box1.png";
-import box2 from "../../assets/imgs/box2.png";
-import box3 from "../../assets/imgs/box3.png";
-import box4 from "../../assets/imgs/box4.png";
-import radius1 from "../../assets/imgs/radius1.png";
-import radius2 from "../../assets/imgs/radius2.png";
-import radius3 from "../../assets/imgs/radius3.png";
+import box1 from "../../assets/imgs/img-icon/box1.png";
+import box2 from "../../assets/imgs/img-icon/box2.png";
+import box3 from "../../assets/imgs/img-icon/box3.png";
+import box4 from "../../assets/imgs/img-icon/box4.png";
+import radius1 from "../../assets/imgs/img-icon/radius1.png";
+import radius2 from "../../assets/imgs/img-icon/radius2.png";
+import radius3 from "../../assets/imgs/img-icon/radius3.png";
 import LineChartComponent from "../../components/Chart/Linechart";
 import BoxHome from "../../components/BoxHome";
 import Calendars from "../../components/Calendar";
-
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { useState } from "react";
 const Home = () => {
+  const data = useSelector((state: RootState) => state.Provide.dataProvide);
+  const [notify, setNotify] = useState<boolean>(false);
+  const handleNotify = () => {
+    setNotify(!notify);
+  };
+  const accountStored = localStorage.getItem("account");
+  if (accountStored) {
+    var account = JSON.parse(accountStored);
+  }
+  const img = require(`../../${account.image}`);
   return (
     <>
       <div className="home">
@@ -71,15 +82,28 @@ const Home = () => {
         </div>
         <div className="homeright">
           <div className="notification-avatar">
-            <img src={iconNotification} className="notifi" alt="" />
+            <img
+              onClick={handleNotify}
+              src={iconNotification}
+              className="notifi"
+              alt=""
+            />
             <Link to="/infomation" className="link-style">
               <div className="infomation">
                 <div className="avatar">
-                  <img src={avatars} alt="" />
+                  <img
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50px",
+                    }}
+                    src={img}
+                    alt=""
+                  />
                 </div>
                 <div className="info">
                   <span>Xin chào</span>
-                  <h3>Lê Thị Quỳnh Vân</h3>
+                  <h3>{account.name}</h3>
                 </div>
               </div>
             </Link>
@@ -159,6 +183,24 @@ const Home = () => {
           </div>
           <div className="CalendarHome">
             <Calendars />
+          </div>
+        </div>
+        <div
+          className="notify-message"
+          style={notify ? { height: "400px" } : { height: "0", border: "none" }}
+        >
+          <div className="top-notify">
+            <h3>Thông báo</h3>
+          </div>
+          <div className="bottom-notify">
+            {data.map((item) => {
+              return (
+                <div className="text-notify">
+                  <b>Người dùng: {item.tenKhachHang}</b> <br />
+                  <span>Thời gian nhận số: {item.thoiGianBatDau} </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

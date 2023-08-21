@@ -203,3 +203,40 @@
   font-size: 20px;
   margin-top: 8px;
 }
+.notify-message {
+  position: absolute;
+  top: 12%;
+  width: 350px;
+  right: 1%;
+  z-index: 100;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  border: 1px solid #d4d4d7;
+}
+.notify-message .top-notify {
+  background-color: #ff9138;
+  color: #fff;
+  height: 45px;
+  width: 100%;
+}
+.top-notify {
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+}
+.notify-message .bottom-notify {
+  background-color: #fff;
+  height: 360px;
+  overflow: auto !important;
+}
+.bottom-notify .text-notify {
+  padding: 10px 0px 10px 30px;
+  border-bottom: 1px solid #d4d4d7;
+}
+.bottom-notify .text-notify span {
+  margin-top: 6px;
+  display: block;
+}
+.bottom-notify .text-notify b {
+  color: #bf5805;
+}

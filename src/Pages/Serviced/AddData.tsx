@@ -5,7 +5,11 @@ import { ServiceType, addService } from "../../redux/Slice/ServiceSlice";
 import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import Navtop from "../../components/Route/Navtop";
+import { DiaryType, addDataDiary } from "../../redux/Slice/DiarySlice";
 const AddDataService = () => {
+  const accountStorage = localStorage.getItem("account");
+  var account = accountStorage ? JSON.parse(accountStorage) : "Chưa đăng nhập";
+  const time = new Date();
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [dataInfo, setDataInfo] = useState<ServiceType>({
@@ -14,8 +18,15 @@ const AddDataService = () => {
     trangThai: "Hoạt động",
     moTa: "",
   });
+  const diary: DiaryType = {
+    userName: account.username,
+    time: time.toLocaleString(),
+    ipAddress: "192.168.10",
+    action: `Thêm mới dịch vụ ${dataInfo.maDichvu}`,
+  };
   const handleAdd = async () => {
     await dispatch(addService(dataInfo));
+    dispatch(addDataDiary(diary));
     navigate("/service");
   };
 

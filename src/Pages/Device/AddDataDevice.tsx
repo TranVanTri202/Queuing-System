@@ -5,7 +5,13 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { DeviceType, addDevice } from "../../redux/Slice/DeviceSlice";
 import Navtop from "../../components/Route/Navtop";
+import { DiaryType, addDataDiary } from "../../redux/Slice/DiarySlice";
 const AddDataDevice = () => {
+  const accountStorage = localStorage.getItem("account");
+  if (accountStorage) {
+    var account = JSON.parse(accountStorage);
+  }
+  const time = new Date();
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const [deviceInfo, setDeviceInfo] = useState<DeviceType>({
@@ -20,8 +26,15 @@ const AddDataDevice = () => {
     matKhau: "",
   });
 
+  const diary: DiaryType = {
+    userName: account.username,
+    time: time.toLocaleString(),
+    ipAddress: "192.168.10",
+    action: `Thêm mới thiết bị ${deviceInfo.maThietBi}`,
+  };
   const handleAdd = async () => {
     await dispatch(addDevice(deviceInfo));
+    dispatch(addDataDiary(diary));
     navigate("/device");
   };
 

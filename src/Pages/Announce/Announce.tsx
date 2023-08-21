@@ -1,33 +1,42 @@
-import iconNotification from "../../assets/imgs/iconNotification.png";
-import avatars from "../../assets/imgs/avatar.png";
-import { Link } from "react-router-dom";
-const Announce = () => {
+import btnDown from "../../assets/imgs/img-icon/iconDown.png";
+import { DatePicker } from "antd";
+import Navtop from "../../components/Route/Navtop";
+import TableData from "../Announce/TableData";
+const Device = () => {
   return (
-    <>
-      <div className="navtop">
-        <div className="heading-navtop">
-          <span>Báo cáo</span>
-          <i className="bi bi-chevron-right"></i>
-          <span>Lập báo cáo</span>
-        </div>
-        <div className="notification-avatar">
-          <img src={iconNotification} className="notifi" alt="" />
-
-          <Link to="/infomation" className="link-style">
-            <div className="infomation">
-              <div className="avatar">
-                <img src={avatars} alt="" />
-              </div>
-              <div className="info">
-                <span>Xin chào</span>
-                <h3>Lê Thị Quỳnh Vân</h3>
+    <div className="main">
+      <Navtop labelFirst="Báo cáo" lableSecond="Lập báo cáo" />
+      <div className="search-table-add">
+        <div className="table-left">
+          <div className="search">
+            <div className="search-left">
+              <div className="item-2">
+                <label htmlFor="">Chọn thời gian</label> <br />
+                <div className="input-time">
+                  <DatePicker
+                    style={{
+                      height: "35px",
+                      marginTop: "10px",
+                      marginRight: "5px",
+                    }}
+                  />
+                  <DatePicker style={{ height: "35px" }} />
+                </div>
               </div>
             </div>
-          </Link>
+          </div>
+          <div className="table-data">
+            {/* table */}
+            <TableData />
+            {/* table */}
+          </div>
+        </div>
+        <div>
+          <img className="add-btn" src={btnDown} alt="" />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Announce;
+export default Device;

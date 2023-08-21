@@ -12,7 +12,7 @@ export interface ServiceType {
   id?: string;
   maDichvu: string;
   tenDichvu: string;
-  trangThai: string;
+  trangThai?: string;
   moTa: string;
 }
 
@@ -44,22 +44,22 @@ export const updateService = createAsyncThunk(
 );
 const Service = createSlice({
   name: "service",
-  initialState: { dataDevice: [] as ServiceType[] },
+  initialState: { dataService: [] as ServiceType[] },
   reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchDataService.fulfilled, (state, action) => {
-        state.dataDevice = action.payload;
+        state.dataService = action.payload;
       })
       .addCase(addService.fulfilled, (state, action) => {
-        state.dataDevice = [...state.dataDevice, action.payload];
+        state.dataService = [...state.dataService, action.payload];
       })
       .addCase(updateService.fulfilled, (state, action) => {
-        const index = state.dataDevice.findIndex(
+        const index = state.dataService.findIndex(
           (service) => service.id === action.payload.id
         );
         if (index !== -1) {
-          state.dataDevice[index] = action.payload;
+          state.dataService[index] = action.payload;
         }
       });
   },

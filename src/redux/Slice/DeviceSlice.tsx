@@ -19,6 +19,7 @@ export interface DeviceType {
   loaiThietBi: string;
   tenDangNhap: string;
   matKhau: string;
+  key?: string;
 }
 
 export const fetchDataDevice = createAsyncThunk<DeviceType[]>(
@@ -61,7 +62,12 @@ const Device = createSlice({
         state.dataDevice = [...state.dataDevice, action.payload];
       })
       .addCase(updateDevice.fulfilled, (state, action) => {
-        state.dataDevice = [...state.dataDevice, action.payload];
+        const index = state.dataDevice.findIndex(
+          (service) => service.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.dataDevice[index] = action.payload;
+        }
       });
   },
 });

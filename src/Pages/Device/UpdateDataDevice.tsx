@@ -9,7 +9,13 @@ import {
   updateDevice,
 } from "../../redux/Slice/DeviceSlice";
 import Navtop from "../../components/Route/Navtop";
+import { DiaryType, addDataDiary } from "../../redux/Slice/DiarySlice";
 const UpdateDataDevice = () => {
+  const accountStorage = localStorage.getItem("account");
+  if (accountStorage) {
+    var account = JSON.parse(accountStorage);
+  }
+  const time = new Date();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const dispatch: AppDispatch = useDispatch();
@@ -26,6 +32,14 @@ const UpdateDataDevice = () => {
     tenDangNhap: "",
     matKhau: "",
   });
+
+  const diary: DiaryType = {
+    userName: account.username,
+    time: time.toLocaleString(),
+    ipAddress: "192.168.10",
+    action: `Cập nhật thông tin thiết bị ${dataInfo.maThietBi}`,
+  };
+
   useEffect(() => {
     dispatch(fetchDataDevice());
     const update = data.find((item) => item.id === id);
@@ -34,6 +48,7 @@ const UpdateDataDevice = () => {
   }, [dispatch, id]);
   const handleUpdate = () => {
     dispatch(updateDevice(dataInfo));
+    dispatch(addDataDiary(diary));
     navigate("/device");
   };
 

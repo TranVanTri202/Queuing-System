@@ -1,5 +1,5 @@
-import logo from "../../assets/imgs/Logoalta.png";
-import imgFrame from "../../assets/imgs/Frame.png";
+import logo from "../../assets/imgs/img-icon/Logoalta.png";
+import imgFrame from "../../assets/imgs/img-icon/Frame.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 

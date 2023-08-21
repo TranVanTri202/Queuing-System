@@ -1,12 +1,12 @@
 import { useState } from "react";
-import logo from "../../assets/imgs/Logoalta.png";
+import logo from "../../assets/imgs/img-icon/Logoalta.png";
 import "../../assets/styles/menu.css";
 import { Link, useNavigate } from "react-router-dom";
-import IconDashboard from "../../assets/imgs/IconDashboard";
-import IconMonitor from "../../assets/imgs/IconMonitor";
-import IconChat from "../../assets/imgs/Iconchat";
-import IconCapso from "../../assets/imgs/IconCapso";
-import IconSetting from "../../assets/imgs/IconSetting";
+import IconDashboard from "../../assets/imgs/img-icon/IconDashboard";
+import IconMonitor from "../../assets/imgs/img-icon/IconMonitor";
+import IconChat from "../../assets/imgs/img-icon/Iconchat";
+import IconCapso from "../../assets/imgs/img-icon/IconCapso";
+import IconSetting from "../../assets/imgs/img-icon/IconSetting";
 const Menu = () => {
   const navigate = useNavigate();
 
@@ -18,6 +18,7 @@ const Menu = () => {
     setActiveIcon(index);
   };
   const handleLogout = () => {
+    localStorage.removeItem("account");
     navigate("/");
   };
   return (
@@ -74,13 +75,24 @@ const Menu = () => {
               Báo cáo
             </li>
           </Link>
-          <li
-            className={activeItem === 5 ? "active" : ""}
-            onClick={() => handleItemClick(5)}
-          >
-            <IconSetting active={activeIcon} />
-            Cài đặt hệ thống
-          </li>
+          <Link className="link-style" to="/Account">
+            <li
+              className={activeItem === 5 ? "active" : ""}
+              onClick={() => handleItemClick(5)}
+            >
+              <IconSetting active={activeIcon} />
+              Quản lý tài khoản
+            </li>
+          </Link>
+          <Link className="link-style" to="/Diary">
+            <li
+              className={activeItem === 6 ? "active" : ""}
+              onClick={() => handleItemClick(6)}
+            >
+              <IconSetting active={activeIcon} />
+              Nhật kí người dùng
+            </li>
+          </Link>
         </ul>
       </div>
       <div className="logout">

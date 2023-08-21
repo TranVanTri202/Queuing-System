@@ -3,12 +3,14 @@ import Account from "./Slice/AccountSlice";
 import Device from "./Slice/DeviceSlice";
 import Service from "./Slice/ServiceSlice";
 import ProvideNumber from "./Slice/ProvideNumberSlice";
+import Diary from "./Slice/DiarySlice";
 const store = configureStore({
   reducer: {
     Account: Account,
     Device: Device,
     Service: Service,
     Provide: ProvideNumber,
+    Diary: Diary,
   },
 });
 export default store;

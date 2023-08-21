@@ -5,12 +5,18 @@ import { ServiceType, fetchDataService } from "../../redux/Slice/ServiceSlice";
 import { Table } from "antd";
 import { useNavigate } from "react-router-dom";
 
-const TableData = () => {
+interface tableProps {
+  status: string;
+}
+const TableData: React.FC<tableProps> = ({ status }) => {
   const dispatch: AppDispatch = useDispatch();
   const dataService = useSelector(
-    (state: RootState) => state.Service.dataDevice
+    (state: RootState) => state.Service.dataService
   );
 
+  let filter = dataService.filter(
+    (item) => status === "Tất cả" || item.trangThai === status
+  );
   useEffect(() => {
     dispatch(fetchDataService());
   }, [dispatch]);
@@ -56,7 +62,8 @@ const TableData = () => {
   return (
     <div>
       <Table
-        dataSource={dataService}
+        rowKey={(record) => record.id!}
+        dataSource={filter}
         columns={columns}
         pagination={{ pageSize: 7 }}
         bordered

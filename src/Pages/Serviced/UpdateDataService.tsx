@@ -10,16 +10,28 @@ import {
 import { AppDispatch, RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import Navtop from "../../components/Route/Navtop";
+import { DiaryType, addDataDiary } from "../../redux/Slice/DiarySlice";
 const UpdateDataService = () => {
+  const accountStorage = localStorage.getItem("account");
+  if (accountStorage) {
+    var account = JSON.parse(accountStorage);
+  }
+  const time = new Date();
   const dispatch: AppDispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.Service.dataDevice);
+  const data = useSelector((state: RootState) => state.Service.dataService);
   const { id } = useParams();
   const [service, setService] = useState<ServiceType>({
     maDichvu: "",
     tenDichvu: "",
-    trangThai: "Hoạt động",
     moTa: "",
   });
+
+  const diary: DiaryType = {
+    userName: account.username,
+    time: time.toLocaleString(),
+    ipAddress: "192.168.10",
+    action: `Cập nhật thông tin dịch vụ ${service.maDichvu}`,
+  };
   useEffect(() => {
     const update = data.find((item) => item.id === id);
     setService(update!);
@@ -30,6 +42,7 @@ const UpdateDataService = () => {
   const navigate = useNavigate();
   const handleUpdate = () => {
     dispatch(updateService(service));
+    dispatch(addDataDiary(diary));
     navigate("/service");
   };
   return (

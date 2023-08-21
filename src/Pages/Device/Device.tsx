@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import TableData from "./TableData";
-import btnAdd from "../../assets/imgs/btnAdd.png";
+import btnAdd from "../../assets/imgs/img-icon/btnAdd.png";
 import { ChangeEvent, useState } from "react";
 import Navtop from "../../components/Route/Navtop";
 const Device = () => {
@@ -12,6 +12,7 @@ const Device = () => {
   const handleChangeStatusCornect = (e: ChangeEvent<HTMLSelectElement>) => {
     setStatusCornect(e.target.value);
   };
+
   return (
     <div className="main">
       <Navtop labelFirst="Thiết bị" lableSecond="Danh sách thiết bị" />

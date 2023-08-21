@@ -121,3 +121,25 @@
   padding: 10px 20px;
   border-radius: 8px;
 }
+
+.addData .input-row3-add select {
+  display: block;
+  background-color: transparent;
+  outline: none;
+  border: 2px solid #d4d4d7;
+  width: 595px;
+  height: 45px;
+  border-radius: 8px;
+  font-size: 100%;
+  padding-left: 10px;
+  margin-top: 8px;
+}
+.username-input-add {
+  position: relative;
+}
+.username-input-add i {
+  position: absolute;
+  top: 55%;
+  right: 5%;
+  cursor: pointer;
+}

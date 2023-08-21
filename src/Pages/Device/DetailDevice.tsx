@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import btnUpdate from "../../assets/imgs/iconUpdate.png";
+import btnUpdate from "../../assets/imgs/img-icon/iconUpdate.png";
 import "../../assets/styles/detail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";

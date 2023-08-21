@@ -1,34 +1,12 @@
-import iconNotification from "../../assets/imgs/iconNotification.png";
-import avatars from "../../assets/imgs/avatar.png";
 import { Link } from "react-router-dom";
-import btnAdd from "../../assets/imgs/btnaddCapso.png";
+import btnAdd from "../../assets/imgs/img-icon/btnaddCapso.png";
 import TableData from "./TableData";
+import Navtop from "../../components/Route/Navtop";
 
 const Provide = () => {
   return (
     <div className="main">
-      <div className="navtop">
-        <div className="heading-navtop">
-          <span>Cấp số</span>
-          <i className="bi bi-chevron-right"></i>
-          <span>Danh sách cấp số</span>
-        </div>
-        <div className="notification-avatar">
-          <img src={iconNotification} className="notifi" alt="" />
-
-          <Link to="/infomation" className="link-style">
-            <div className="infomation">
-              <div className="avatar">
-                <img src={avatars} alt="" />
-              </div>
-              <div className="info">
-                <span>Xin chào</span>
-                <h3>Lê Thị Quỳnh Vân</h3>
-              </div>
-            </div>
-          </Link>
-        </div>
-      </div>
+      <Navtop labelFirst="Cấp số" lableSecond="Danh sách cấp số" />
       <h2 className="heading-text">Quản lí cấp số</h2>
       <div className="search-table-add">
         <div className="table-left">

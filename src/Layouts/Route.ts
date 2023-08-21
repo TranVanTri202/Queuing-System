@@ -14,6 +14,10 @@ import AddDataService from "../Pages/Serviced/AddData";
 import DetailProvide from "../Pages/Provide/Detail";
 import AddNumber from "../Pages/Provide/AddNumber";
 import UpdateDataService from "../Pages/Serviced/UpdateDataService";
+import Account from "../Pages/Account/Account";
+import AddDataAccount from "../Pages/Account/AddData";
+import UpdateAccount from "../Pages/Account/UpdateData";
+import Diary from "../Pages/Diary/Diary";
 export const RoutePages = [
   {
     path: "/",
@@ -82,5 +86,21 @@ export const RoutePages = [
   {
     path: "/updateDataService/:id",
     component: UpdateDataService,
+  },
+  {
+    path: "/Account",
+    component: Account,
+  },
+  {
+    path: "/addDataAccount",
+    component: AddDataAccount,
+  },
+  {
+    path: "/UpdateAccount/:id",
+    component: UpdateAccount,
+  },
+  {
+    path: "/Diary",
+    component: Diary,
   },
 ];

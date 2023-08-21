@@ -96,12 +96,13 @@ const TableData: React.FC<tableProps> = ({ statusActive, statusCornect }) => {
       ),
     },
   ];
+  let index = 1;
   return (
     <div>
       <Table
         dataSource={filter}
         columns={columns}
-        rowKey="id"
+        rowKey={(record) => record.id!}
         pagination={{ pageSize: 7 }}
         bordered
       />

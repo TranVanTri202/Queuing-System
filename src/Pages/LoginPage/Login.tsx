@@ -1,7 +1,7 @@
 import "./login.css";
-import img1 from "../../assets/imgs/Group341.png";
-import img2 from "../../assets/imgs/quanly.png";
-import logo from "../../assets/imgs/Logoalta.png";
+import img1 from "../../assets/imgs/img-icon/Group341.png";
+import img2 from "../../assets/imgs/img-icon/quanly.png";
+import logo from "../../assets/imgs/img-icon/Logoalta.png";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../redux/store";
@@ -21,6 +21,7 @@ const Login: React.FC = () => {
   const [type, setType] = useState<boolean>(true);
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
   const handleChangeType = () => {
     setType(!type);
   };
@@ -35,16 +36,20 @@ const Login: React.FC = () => {
 
   const handleLogin = () => {
     // eslint-disable-next-line array-callback-return
-    dataAccount.map((item) => {
-      if (userName === item.username && password === item.password) {
-        setSpin(true);
-        setTimeout(() => {
-          navigate("/home");
-        }, 900);
-      } else {
-        setAccount(false);
-      }
-    });
+    const user = dataAccount.find(
+      (account) =>
+        account.username === userName && account.password === password
+    );
+    if (user) {
+      setSpin(true);
+      setAccount(true);
+      setTimeout(() => {
+        navigate("/home");
+        localStorage.setItem("account", JSON.stringify(user));
+      }, 1000);
+    } else {
+      setAccount(false);
+    }
   };
   useEffect(() => {
     dispatch(fetchDataAcount());
