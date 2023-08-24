@@ -18,6 +18,7 @@ import Account from "../Pages/Account/Account";
 import AddDataAccount from "../Pages/Account/AddData";
 import UpdateAccount from "../Pages/Account/UpdateData";
 import Diary from "../Pages/Diary/Diary";
+import DetailService from "../Pages/Serviced/DetailService";
 export const RoutePages = [
   {
     path: "/",
@@ -76,6 +77,10 @@ export const RoutePages = [
     component: AddDataService,
   },
   {
+    path: "/detailService/:id",
+    component: DetailService,
+  },
+  {
     path: "/provide/addNumber",
     component: AddNumber,
   },
@@ -90,6 +95,11 @@ export const RoutePages = [
   {
     path: "/Account",
     component: Account,
+  },
+  {
+    path: "/NewPassword/:id",
+    component: Newpassword,
+    route: "login",
   },
   {
     path: "/addDataAccount",

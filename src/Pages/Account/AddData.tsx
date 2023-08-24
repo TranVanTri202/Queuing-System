@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import Navtop from "../../components/Route/Navtop";
-import { AccountType, addAccount } from "../../redux/Slice/AccountSlice";
+import { addAccount } from "../../redux/Slice/AccountSlice";
 import { message } from "antd";
+import { AccountType } from "../../share/accountInterface";
 const AddDataAccount = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
@@ -17,10 +18,11 @@ const AddDataAccount = () => {
     role: "",
     phoneNumber: "",
     name: "",
-    img: "",
+    image: "",
     trangThai: "",
   });
-  const [messageApi, contextHolder] = message.useMessage();
+
+  const [messageApi, contextHolder] = message.useMessage(); //thanh thông báo
   const [typePassword1, setTypePassword1] = useState<boolean>(false);
   const [typePassword2, setTypePassword2] = useState<boolean>(false);
   const [password1, setPassword1] = useState<string>("");
@@ -28,9 +30,11 @@ const AddDataAccount = () => {
   const handleChangType1 = () => {
     setTypePassword1(!typePassword1);
   };
+
   const handleChangType2 = () => {
     setTypePassword2(!typePassword2);
   };
+
   const openModal = async () => {
     if (password1 !== dataInfo.password) {
       messageApi.open({
@@ -38,7 +42,7 @@ const AddDataAccount = () => {
         content: "Mật khẩu chưa khớp",
       });
     } else {
-      dispatch(addAccount(dataInfo));
+      await dispatch(addAccount(dataInfo));
       navigate("/Account");
     }
   };
@@ -46,6 +50,7 @@ const AddDataAccount = () => {
   const handleChangeInput = (prev: string, value: string) => {
     setDataInfo({ ...dataInfo, [prev]: value });
   };
+
   return (
     <div className="main">
       {contextHolder}

@@ -3,9 +3,26 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect } from "react";
 import { fetDataProvideNumber } from "../../redux/Slice/ProvideNumberSlice";
 import { Table } from "antd";
-const TableData = () => {
+import { parse } from "date-fns";
+
+interface tableProps {
+  startDate: Date;
+  endDate: Date;
+}
+
+const TableData: React.FC<tableProps> = ({ startDate, endDate }) => {
   const dispatch: AppDispatch = useDispatch();
   const data = useSelector((state: RootState) => state.Provide.dataProvide);
+
+  //lọc dữ liệu
+  const filter = data.filter(
+    (item) =>
+      (!startDate ||
+        startDate <=
+          parse(item.thoiGianBatDau, "HH:mm dd/MM/yyyy", new Date())) &&
+      (!endDate ||
+        endDate >= parse(item.thoiGianBatDau, "HH:mm dd/MM/yyyy", new Date()))
+  );
 
   useEffect(() => {
     dispatch(fetDataProvideNumber());
@@ -17,7 +34,6 @@ const TableData = () => {
       dataIndex: "stt",
       key: "stt",
     },
-
     {
       title: "Tên dịch vụ",
       dataIndex: "tenDichVu",
@@ -44,7 +60,7 @@ const TableData = () => {
     <div>
       <Table
         rowKey={(record) => record.id!}
-        dataSource={data}
+        dataSource={filter}
         columns={columns}
         pagination={{ pageSize: 7 }}
       />

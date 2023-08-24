@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import Account from "./Slice/AccountSlice";
-import Device from "./Slice/DeviceSlice";
+import Device from "./Slice/deviceSlice";
 import Service from "./Slice/ServiceSlice";
 import ProvideNumber from "./Slice/ProvideNumberSlice";
 import Diary from "./Slice/DiarySlice";

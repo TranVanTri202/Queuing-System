@@ -240,3 +240,14 @@
 .bottom-notify .text-notify b {
   color: #bf5805;
 }
+.main-right-service {
+  width: 780px;
+  background-color: #fff;
+  height: 540px;
+  border-radius: 12px;
+  padding: 15px 10px;
+}
+.bi-caret-right-fill {
+  color: #ff7506;
+  margin-right: 7px;
+}

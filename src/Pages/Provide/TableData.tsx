@@ -1,23 +1,54 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect } from "react";
-import {
-  fetDataProvideNumber,
-  ProvideNumberType,
-} from "../../redux/Slice/ProvideNumberSlice";
+import { parse } from "date-fns";
+
+import { fetDataProvideNumber } from "../../redux/Slice/ProvideNumberSlice";
 import { Table } from "antd";
 import { useNavigate } from "react-router-dom";
-
-const TableData = () => {
+import { ProvideNumberType } from "../../share/provideInterface";
+interface tableProps {
+  nameService: string;
+  status: string;
+  nguonCap: string;
+  stt: string;
+  startDate: Date;
+  endDate: Date;
+}
+const TableData: React.FC<tableProps> = ({
+  nameService,
+  status,
+  nguonCap,
+  stt,
+  startDate,
+  endDate,
+}) => {
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const data = useSelector((state: RootState) => state.Provide.dataProvide);
-  const navigate = useNavigate();
+
+  //lọc dữ liệu trong bảng
+  const filter = data.filter(
+    (item) =>
+      (nameService === "Tất cả" || item.tenDichVu === nameService) &&
+      (status === "Tất cả" || item.trangThai === status) &&
+      (nguonCap === "Tất cả" || item.nguonCap === nguonCap) &&
+      (stt === "" || item.stt.includes(stt)) &&
+      (!startDate ||
+        parse(item.thoiGianBatDau, "HH:mm dd/MM/yyyy", new Date()) >=
+          startDate) &&
+      (!endDate ||
+        parse(item.thoiGianBatDau, "HH:mm dd/MM/yyyy", new Date()) <= endDate)
+  );
+
   useEffect(() => {
     dispatch(fetDataProvideNumber());
   }, [dispatch]);
+
   const handleDetail = (id: string) => {
     navigate(`/provide/detail/${id}`);
   };
+
   const columns = [
     {
       title: "STT",
@@ -69,7 +100,7 @@ const TableData = () => {
     <div>
       <Table
         rowKey={(record) => record.id!}
-        dataSource={data}
+        dataSource={filter}
         columns={columns}
         pagination={{ pageSize: 7 }}
       />

@@ -3,14 +3,18 @@ import "../../assets/styles/addData.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { DeviceType, addDevice } from "../../redux/Slice/DeviceSlice";
+import { addDevice } from "../../redux/Slice/deviceSlice";
 import Navtop from "../../components/Route/Navtop";
-import { DiaryType, addDataDiary } from "../../redux/Slice/DiarySlice";
+import { addDataDiary } from "../../redux/Slice/DiarySlice";
+import { DeviceType } from "../../share/deviceInterface";
+import { DiaryType } from "../../share/diaryInterface";
 const AddDataDevice = () => {
+  //lấy dữ liệu của người dùng khi đã đăng nhập
   const accountStorage = localStorage.getItem("account");
   if (accountStorage) {
     var account = JSON.parse(accountStorage);
   }
+
   const time = new Date();
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
@@ -26,12 +30,14 @@ const AddDataDevice = () => {
     matKhau: "",
   });
 
+  //đưa vào nhật kí người dùng khi xử lí hành động nào đó
   const diary: DiaryType = {
     userName: account.username,
     time: time.toLocaleString(),
     ipAddress: "192.168.10",
     action: `Thêm mới thiết bị ${deviceInfo.maThietBi}`,
   };
+
   const handleAdd = async () => {
     await dispatch(addDevice(deviceInfo));
     dispatch(addDataDiary(diary));

@@ -4,18 +4,22 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import Navtop from "../../components/Route/Navtop";
-import { AccountType, addAccount } from "../../redux/Slice/AccountSlice";
+import { updateAccount } from "../../redux/Slice/AccountSlice";
 import { message } from "antd";
+import { AccountType } from "../../share/accountInterface";
 const UpdateAccount = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const data = useSelector((state: RootState) => state.Account.dataAccount);
-  const { id } = useParams();
+  const { id } = useParams(); //lấy id trên thanh url
+
   useEffect(() => {
     const update = data.find((account) => account.id === id);
     setDataInfo(update!);
-    console.log("re-render");
+    setPassword(update?.password);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
+
   const [dataInfo, setDataInfo] = useState<AccountType>({
     username: "",
     password: "",
@@ -23,28 +27,30 @@ const UpdateAccount = () => {
     role: "",
     phoneNumber: "",
     name: "",
-    img: "",
     trangThai: "",
   });
-  const [messageApi, contextHolder] = message.useMessage();
+
+  const [messageApi, contextHolder] = message.useMessage(); //thanh thông báo
   const [typePassword1, setTypePassword1] = useState<boolean>(false);
   const [typePassword2, setTypePassword2] = useState<boolean>(false);
-  const [password1, setPassword1] = useState<string>("");
+  const [password, setPassword] = useState<string | undefined>("");
 
   const handleChangType1 = () => {
     setTypePassword1(!typePassword1);
   };
+
   const handleChangType2 = () => {
     setTypePassword2(!typePassword2);
   };
-  const openModal = async () => {
-    if (password1 !== dataInfo.password) {
+
+  const handleUpdate = async () => {
+    if (password !== dataInfo.password) {
       messageApi.open({
         type: "warning",
         content: "Mật khẩu chưa khớp",
       });
     } else {
-      dispatch(addAccount(dataInfo));
+      await dispatch(updateAccount(dataInfo));
       navigate("/Account");
     }
   };
@@ -52,6 +58,7 @@ const UpdateAccount = () => {
   const handleChangeInput = (prev: string, value: string) => {
     setDataInfo({ ...dataInfo, [prev]: value });
   };
+
   return (
     <div className="main">
       {contextHolder}
@@ -103,8 +110,8 @@ const UpdateAccount = () => {
                 <label htmlFor="">Mật khẩu</label>
                 <span className="dausao">*</span>
                 <input
-                  value={dataInfo?.password}
-                  onChange={(e) => setPassword1(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   type={typePassword1 ? "password" : "text"}
                 />
                 <i
@@ -176,7 +183,7 @@ const UpdateAccount = () => {
                     handleChangeInput("trangThai", e.target.value)
                   }
                 >
-                  <option value="">-Chọn tình trạng-</option>
+                  <option>-Chọn tình trạng-</option>
                   <option value="Hoạt động">Hoạt động</option>
                   <option value="Ngưng họat động">Ngưng hoạt động</option>
                 </select>
@@ -196,8 +203,8 @@ const UpdateAccount = () => {
           <Link to="/Account">
             <button>Hủy bỏ</button>
           </Link>
-          <button onClick={openModal} className="btn-login">
-            Thêm{" "}
+          <button onClick={handleUpdate} className="btn-login">
+            Cập nhật{" "}
           </button>
         </div>
       </div>

@@ -10,12 +10,11 @@ import { fetchDataAcount } from "../../redux/Slice/AccountSlice";
 import { Spin } from "antd";
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const dataAccount = useSelector(
     (state: RootState) => state.Account.dataAccount
   );
-
-  const navigate = useNavigate();
   const [account, setAccount] = useState<boolean>(true);
   const [spin, setSpin] = useState<boolean>(false);
   const [type, setType] = useState<boolean>(true);
@@ -45,14 +44,16 @@ const Login: React.FC = () => {
       setAccount(true);
       setTimeout(() => {
         navigate("/home");
-        localStorage.setItem("account", JSON.stringify(user));
+        localStorage.setItem("account", JSON.stringify(user)); // đăng nhập thành công thì đưa dữ liệu của người dùng vào     localStorage
       }, 1000);
     } else {
       setAccount(false);
     }
   };
+
   useEffect(() => {
     dispatch(fetchDataAcount());
+    localStorage.removeItem("account");
   }, [dispatch]);
   return (
     <div className="login-page">

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
+import { fetDataProvideNumber } from "../../redux/Slice/ProvideNumberSlice";
 interface navtopProps {
   labelFirst: string;
   lableSecond: string;
@@ -25,10 +26,9 @@ const Navtop: React.FC<navtopProps> = ({
   const handleNotify = () => {
     setNotify(!notify);
   };
-  let index = 0;
   useEffect(() => {
-    console.log("re-render");
-  }, [dispatch, data]);
+    dispatch(fetDataProvideNumber());
+  }, [dispatch]);
   return (
     <div className="navtop">
       <div className="heading-navtop">

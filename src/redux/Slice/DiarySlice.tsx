@@ -1,14 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import apiFirebase from "../../Firebase/FirebaseConfig";
-
-export interface DiaryType {
-  id?: string;
-  userName: string;
-  time: any;
-  ipAddress: string;
-  action: string;
-}
+import { DiaryType } from "../../share/diaryInterface";
 
 export const fetDataDiary = createAsyncThunk<DiaryType[]>(
   "Diary/fetDataDiary",

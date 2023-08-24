@@ -6,6 +6,7 @@ import Navtop from "../../components/Route/Navtop";
 import { ChangeEvent, useState } from "react";
 const Device = () => {
   const [status, setStatus] = useState<string>("Tất cả");
+  const [text, setText] = useState<string>("");
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setStatus(e.target.value);
   };
@@ -36,6 +37,7 @@ const Device = () => {
                       marginRight: "5px",
                     }}
                   />
+                  <i className=" bi bi-caret-right-fill"></i>
                   <DatePicker style={{ height: "35px" }} />
                 </div>
               </div>
@@ -44,14 +46,18 @@ const Device = () => {
               <label htmlFor="">Từ khóa</label>
               <br />
               <div className="input-search">
-                <input type="text" placeholder="Nhập từ khóa" />
+                <input
+                  onChange={(e) => setText(e.target.value)}
+                  type="text"
+                  placeholder="Nhập từ khóa"
+                />
                 <i className="bi bi-search"></i>
               </div>
             </div>
           </div>
           <div className="table-data">
             {/* table */}
-            <TableData status={status} />
+            <TableData text={text} status={status} />
             {/* table */}
           </div>
         </div>

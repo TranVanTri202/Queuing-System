@@ -1,22 +1,28 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect } from "react";
-import { ServiceType, fetchDataService } from "../../redux/Slice/ServiceSlice";
+import { fetchDataService } from "../../redux/Slice/ServiceSlice";
 import { Table } from "antd";
 import { useNavigate } from "react-router-dom";
+import { ServiceType } from "../../share/serviceInterface";
 
 interface tableProps {
   status: string;
+  text: string;
 }
-const TableData: React.FC<tableProps> = ({ status }) => {
+const TableData: React.FC<tableProps> = ({ status, text }) => {
   const dispatch: AppDispatch = useDispatch();
   const dataService = useSelector(
     (state: RootState) => state.Service.dataService
   );
 
+  //lọc dữ liệu trong bảng
   let filter = dataService.filter(
-    (item) => status === "Tất cả" || item.trangThai === status
+    (item) =>
+      (status === "Tất cả" || item.trangThai === status) &&
+      (text === "" || item.maDichvu.includes(text))
   );
+
   useEffect(() => {
     dispatch(fetchDataService());
   }, [dispatch]);
@@ -24,6 +30,10 @@ const TableData: React.FC<tableProps> = ({ status }) => {
   const navigate = useNavigate();
   const handleUpdate = (id: string) => {
     navigate(`/updateDataService/${id}`);
+  };
+
+  const handleDetail = (id: string) => {
+    navigate(`/detailService/${id}`);
   };
 
   const columns = [
@@ -46,7 +56,11 @@ const TableData: React.FC<tableProps> = ({ status }) => {
     {
       title: "",
       key: "details",
-      render: () => <span className="underline">Chi tiết</span>,
+      render: (text: string, record: ServiceType) => (
+        <span onClick={() => handleDetail(record.id!)} className="underline">
+          Chi tiết
+        </span>
+      ),
     },
     {
       title: "",

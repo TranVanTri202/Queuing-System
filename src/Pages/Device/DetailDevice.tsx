@@ -4,20 +4,23 @@ import "../../assets/styles/detail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect, useState } from "react";
-import { DeviceType, fetchDataDevice } from "../../redux/Slice/DeviceSlice";
+import { fetchDataDevice } from "../../redux/Slice/deviceSlice";
 import Navtop from "../../components/Route/Navtop";
+import { DeviceType } from "../../share/deviceInterface";
 const DetailDevice = () => {
-  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>(); //lấy id trên thanh url để truy xuất
   const ditpatch: AppDispatch = useDispatch();
   const data = useSelector((state: RootState) => state.Device.dataDevice);
   const [device, setDevice] = useState<DeviceType>();
+
   useEffect(() => {
     const detail = data.find((item) => item.id === id);
     setDevice(detail);
     ditpatch(fetchDataDevice());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, ditpatch]);
-  const navigate = useNavigate();
+
   return (
     <div className="main">
       <Navtop

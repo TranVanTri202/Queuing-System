@@ -3,21 +3,21 @@ import "../../assets/styles/addData.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect, useState } from "react";
-import {
-  DeviceType,
-  fetchDataDevice,
-  updateDevice,
-} from "../../redux/Slice/DeviceSlice";
+import { fetchDataDevice, updateDevice } from "../../redux/Slice/deviceSlice";
 import Navtop from "../../components/Route/Navtop";
-import { DiaryType, addDataDiary } from "../../redux/Slice/DiarySlice";
+import { addDataDiary } from "../../redux/Slice/DiarySlice";
+import { DeviceType } from "../../share/deviceInterface";
+import { DiaryType } from "../../share/diaryInterface";
 const UpdateDataDevice = () => {
+  //lấy dữ liệu người dùng khi đã đăng nhập
   const accountStorage = localStorage.getItem("account");
   if (accountStorage) {
     var account = JSON.parse(accountStorage);
   }
+
   const time = new Date();
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>(); //lấy id trên thanh url để xử lí
   const dispatch: AppDispatch = useDispatch();
   const data = useSelector((state: RootState) => state.Device.dataDevice);
 
@@ -33,6 +33,7 @@ const UpdateDataDevice = () => {
     matKhau: "",
   });
 
+  //đưa vào nhật kí người dùng khi xử lí hành động nào đó
   const diary: DiaryType = {
     userName: account.username,
     time: time.toLocaleString(),
@@ -46,9 +47,10 @@ const UpdateDataDevice = () => {
     setDataInfo(update!);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
-  const handleUpdate = () => {
-    dispatch(updateDevice(dataInfo));
-    dispatch(addDataDiary(diary));
+
+  const handleUpdate = async () => {
+    await dispatch(updateDevice(dataInfo));
+    await dispatch(addDataDiary(diary));
     navigate("/device");
   };
 

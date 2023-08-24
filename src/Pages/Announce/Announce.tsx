@@ -2,7 +2,11 @@ import btnDown from "../../assets/imgs/img-icon/iconDown.png";
 import { DatePicker } from "antd";
 import Navtop from "../../components/Route/Navtop";
 import TableData from "../Announce/TableData";
+import { useState } from "react";
 const Device = () => {
+  const [startDate, setStarDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+
   return (
     <div className="main">
       <Navtop labelFirst="Báo cáo" lableSecond="Lập báo cáo" />
@@ -19,15 +23,21 @@ const Device = () => {
                       marginTop: "10px",
                       marginRight: "5px",
                     }}
+                    onChange={(date) =>
+                      setStarDate(date ? date.toDate() : null)
+                    }
                   />
-                  <DatePicker style={{ height: "35px" }} />
+                  <DatePicker
+                    style={{ height: "35px" }}
+                    onChange={(date) => setEndDate(date ? date.toDate() : null)}
+                  />
                 </div>
               </div>
             </div>
           </div>
           <div className="table-data">
             {/* table */}
-            <TableData />
+            <TableData startDate={startDate!} endDate={endDate!} />
             {/* table */}
           </div>
         </div>

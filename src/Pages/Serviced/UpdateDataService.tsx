@@ -3,19 +3,23 @@ import { useNavigate } from "react-router-dom";
 import "../../assets/styles/addData.css";
 import { useState, useEffect } from "react";
 import {
-  ServiceType,
   fetchDataService,
   updateService,
 } from "../../redux/Slice/ServiceSlice";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import Navtop from "../../components/Route/Navtop";
-import { DiaryType, addDataDiary } from "../../redux/Slice/DiarySlice";
+import { addDataDiary } from "../../redux/Slice/DiarySlice";
+import { ServiceType } from "../../share/serviceInterface";
+import { DiaryType } from "../../share/diaryInterface";
 const UpdateDataService = () => {
+  const navigate = useNavigate();
+  //lấy dữ liệu người dùng khi đăng nhập thành công
   const accountStorage = localStorage.getItem("account");
   if (accountStorage) {
     var account = JSON.parse(accountStorage);
   }
+
   const time = new Date();
   const dispatch: AppDispatch = useDispatch();
   const data = useSelector((state: RootState) => state.Service.dataService);
@@ -25,13 +29,14 @@ const UpdateDataService = () => {
     tenDichvu: "",
     moTa: "",
   });
-
+  //đưa vào nhật kí người dùng khi xử lí hành động nào đó
   const diary: DiaryType = {
     userName: account.username,
     time: time.toLocaleString(),
     ipAddress: "192.168.10",
     action: `Cập nhật thông tin dịch vụ ${service.maDichvu}`,
   };
+
   useEffect(() => {
     const update = data.find((item) => item.id === id);
     setService(update!);
@@ -39,12 +44,12 @@ const UpdateDataService = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
 
-  const navigate = useNavigate();
-  const handleUpdate = () => {
-    dispatch(updateService(service));
-    dispatch(addDataDiary(diary));
+  const handleUpdate = async () => {
+    await dispatch(updateService(service));
+    await dispatch(addDataDiary(diary));
     navigate("/service");
   };
+
   return (
     <div className="main">
       <Navtop

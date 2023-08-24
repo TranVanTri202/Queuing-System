@@ -6,32 +6,33 @@ import ModalAdd from "./Modal";
 import Navtop from "../../components/Route/Navtop";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import {
-  ProvideNumberType,
-  addProvideNumer,
-} from "../../redux/Slice/ProvideNumberSlice";
+import { format, addDays } from "date-fns";
+import { addProvideNumer } from "../../redux/Slice/ProvideNumberSlice";
 import { message } from "antd";
-import { DiaryType, addDataDiary } from "../../redux/Slice/DiarySlice";
+import { addDataDiary } from "../../redux/Slice/DiarySlice";
+import { ProvideNumberType } from "../../share/provideInterface";
+import { DiaryType } from "../../share/diaryInterface";
 const AddNumber = () => {
-  const { format, addDays } = require("date-fns");
-  const dispath: AppDispatch = useDispatch();
+  //lấy dữ liệu người dùng khi đã đăng nhạp thành công
   const accountStore = localStorage.getItem("account");
   if (accountStore) {
     var account = JSON.parse(accountStore);
   }
+
+  const navigate = useNavigate();
+  const dispath: AppDispatch = useDispatch();
   const data = useSelector((state: RootState) => state.Provide.dataProvide);
   const sttValues = data.map((item) => Number(item.stt));
-  const maxStt = Math.max(...sttValues) + 1;
+  const maxStt = Math.max(...sttValues) + 1; //lấy số thứ tự tiếp theo làm stt khi cung cấp số mới
 
   const time = new Date();
   const timeBatDau = format(time, "HH:mm dd/MM/yyyy");
   const timeHetHan = format(addDays(time, 1), "HH:mm dd/MM/yyyy");
-  const [messageApi, contextHolder] = message.useMessage();
+  const [messageApi, contextHolder] = message.useMessage(); //thanh thông báo
   const [dichVu, setDichvu] = useState<string>();
-
   const [modal, setModal] = useState<boolean>(false);
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (dichVu === undefined) {
       messageApi.open({
         type: "warning",
@@ -47,6 +48,7 @@ const AddNumber = () => {
         trangThai: "Đang chờ",
         nguonCap: "Hệ thống",
       };
+      //đưa vào nhật kí người dùng khi xử lí hành động nào đó
       const diary: DiaryType = {
         userName: account.username,
         time: time.toLocaleString(),
@@ -54,18 +56,18 @@ const AddNumber = () => {
         action: `Cung cấp số ${newDataInfo.stt} dịch vụ là ${newDataInfo.tenDichVu}`,
       };
       setModal(true);
-      dispath(addProvideNumer(newDataInfo));
-      dispath(addDataDiary(diary));
+      await dispath(addProvideNumer(newDataInfo));
+      await dispath(addDataDiary(diary));
     }
   };
 
   const handleCloseModal = () => {
     setModal(false);
   };
+
   const handleChangeDichVu = (e: ChangeEvent<HTMLSelectElement>) => {
     setDichvu(e.target.value);
   };
-  const navigate = useNavigate();
 
   return (
     <div className="main">

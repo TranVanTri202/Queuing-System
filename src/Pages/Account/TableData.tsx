@@ -2,16 +2,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { Table } from "antd";
 import { useEffect } from "react";
-import { AccountType, fetchDataAcount } from "../../redux/Slice/AccountSlice";
+import { fetchDataAcount } from "../../redux/Slice/AccountSlice";
 import { useNavigate } from "react-router-dom";
-const TableData = () => {
+import { AccountType } from "../../share/accountInterface";
+
+interface tableProps {
+  status: string;
+  text: string;
+}
+
+const TableData: React.FC<tableProps> = ({ status, text }) => {
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const data = useSelector((state: RootState) => state.Account.dataAccount);
 
+  //lọc dữ liệu
+  const filter = data.filter(
+    (item) =>
+      (status === "Tất cả" || item.trangThai === status) &&
+      (text === "" || item.email?.includes(text))
+  );
+
   useEffect(() => {
     dispatch(fetchDataAcount());
+    console.log("re-render");
   }, [dispatch]);
-  const navigate = useNavigate();
+
   const columns = [
     {
       title: "Tên đăng nhập",
@@ -61,7 +77,7 @@ const TableData = () => {
       <Table
         rowKey={(record) => record.id!}
         columns={columns}
-        dataSource={data}
+        dataSource={filter}
         pagination={{ pageSize: 7 }}
       />
     </div>

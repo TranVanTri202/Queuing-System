@@ -2,7 +2,10 @@ import { Link } from "react-router-dom";
 import Navtop from "../../components/Route/Navtop";
 import btnAdd from "../../assets/imgs/img-icon/iconAddAcount.png";
 import TableData from "./TableData";
+import { useState } from "react";
 const Account = () => {
+  const [text, setText] = useState<string>("");
+  const [status, setStatus] = useState<string>("Tất cả");
   return (
     <div className="main">
       <Navtop labelFirst="Cài đặt hệ thống" lableSecond="Quản lý tài khoản" />
@@ -13,8 +16,12 @@ const Account = () => {
             <div className="search-left">
               <div className="item-1">
                 <label htmlFor="">Trạng thái hoạt động</label> <br />
-                <select name="" id="">
-                  <option value="Tất cả">Tất cả</option>
+                <select
+                  name=""
+                  id=""
+                  onChange={(e) => setStatus(e.target.value)}
+                >
+                  <option defaultValue="Tất cả">Tất cả</option>
                   <option value="Hoạt động">Hoạt động</option>
                   <option value="Ngưng hoạt động">Ngưng hoạt động</option>
                 </select>
@@ -24,14 +31,18 @@ const Account = () => {
               <label htmlFor="">Từ khóa</label>
               <br />
               <div className="input-search">
-                <input type="text" placeholder="Nhập từ khóa" />
+                <input
+                  onChange={(e) => setText(e.target.value)}
+                  type="text"
+                  placeholder="Nhập từ khóa"
+                />
                 <i className="bi bi-search"></i>
               </div>
             </div>
           </div>
           <div className="table-data">
             {/* table */}
-            <TableData />
+            <TableData status={status} text={text} />
             {/* table */}
           </div>
         </div>

@@ -4,24 +4,23 @@ import "../../assets/styles/detail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect, useState } from "react";
-import {
-  ProvideNumberType,
-  fetDataProvideNumber,
-} from "../../redux/Slice/ProvideNumberSlice";
+import { fetDataProvideNumber } from "../../redux/Slice/ProvideNumberSlice";
 import Navtop from "../../components/Route/Navtop";
+import { ProvideNumberType } from "../../share/provideInterface";
 const DetailProvide = () => {
-  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>(); //lấy id trên url để xử lí
   const ditpatch: AppDispatch = useDispatch();
   const data = useSelector((state: RootState) => state.Provide.dataProvide);
   const [provide, setProvide] = useState<ProvideNumberType>();
+
   useEffect(() => {
     const detail = data.find((item) => item.id === id);
     setProvide(detail);
     ditpatch(fetDataProvideNumber());
-    console.log("re-render");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ditpatch, id]);
-  const navigate = useNavigate();
+
   return (
     <div className="main">
       <Navtop

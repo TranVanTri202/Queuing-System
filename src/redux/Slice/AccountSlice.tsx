@@ -1,18 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import apiFirebase from "../../Firebase/FirebaseConfig";
-
-export interface AccountType {
-  id?: string;
-  username: string;
-  password: string;
-  email: string;
-  role: string;
-  phoneNumber: string;
-  name: string;
-  img?: string;
-  trangThai: string;
-}
+import { AccountType } from "../../share/accountInterface";
 
 export const fetchDataAcount = createAsyncThunk<AccountType[]>(
   "adminAccount/fetchDataAcount",
@@ -35,6 +30,15 @@ export const addAccount = createAsyncThunk(
   }
 );
 
+export const updateAccount = createAsyncThunk(
+  "adminAccount/updateAccount",
+  async (account: any) => {
+    const docRef = doc(collection(apiFirebase, "adminAccount"), account.id);
+    await updateDoc(docRef, account);
+    return account;
+  }
+);
+
 const Account = createSlice({
   name: "adminAccount",
   initialState: { dataAccount: [] as AccountType[] },
@@ -44,13 +48,16 @@ const Account = createSlice({
       .addCase(fetchDataAcount.fulfilled, (state, action) => {
         state.dataAccount = action.payload;
       })
-      .addCase(addAccount.fulfilled, (state, action) => {
+      .addCase(updateAccount.fulfilled, (state, action) => {
         const index = state.dataAccount.findIndex(
           (account) => account.id === action.payload.id
         );
         if (index !== -1) {
           state.dataAccount[index] = action.payload;
         }
+      })
+      .addCase(addAccount.fulfilled, (state, action) => {
+        state.dataAccount = [...state.dataAccount, action.payload];
       });
   },
 });

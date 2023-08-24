@@ -2,32 +2,43 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/table.css";
-import { DeviceType, fetchDataDevice } from "../../redux/Slice/DeviceSlice";
+import { fetchDataDevice } from "../../redux/Slice/deviceSlice";
 import { useNavigate } from "react-router-dom";
 import { Table } from "antd";
+import { DeviceType } from "../../share/deviceInterface";
 
 interface tableProps {
   statusActive?: string;
   statusCornect?: string;
+  text: string;
 }
-const TableData: React.FC<tableProps> = ({ statusActive, statusCornect }) => {
+
+const TableData: React.FC<tableProps> = ({
+  statusActive,
+  statusCornect,
+  text,
+}) => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const dataDevice = useSelector((state: RootState) => state.Device.dataDevice);
 
+  //lọc dữ liệu khi render bảng
   const filter = dataDevice.filter(
     (item) =>
       (statusActive === "Tất cả" || item.tinhTrangHD === statusActive) &&
-      (statusCornect === "Tất cả" || item.tinhTrangKN === statusCornect)
+      (statusCornect === "Tất cả" || item.tinhTrangKN === statusCornect) &&
+      (text === "" || item.maThietBi.includes(text))
   );
 
   const handleClick = (id: string) => {
     navigate(`/device/detail/${id}`);
   };
+
   useEffect(() => {
     dispatch(fetchDataDevice());
   }, [dispatch]);
 
+  //xử lí chuổi
   const [expandedService, setExpandedService] = useState<{
     [key: string]: boolean;
   }>({});
@@ -96,7 +107,7 @@ const TableData: React.FC<tableProps> = ({ statusActive, statusCornect }) => {
       ),
     },
   ];
-  let index = 1;
+
   return (
     <div>
       <Table

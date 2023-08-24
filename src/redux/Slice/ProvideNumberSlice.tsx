@@ -1,17 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import apiFirebase from "../../Firebase/FirebaseConfig";
-
-export interface ProvideNumberType {
-  id?: string;
-  stt: string;
-  tenKhachHang: string;
-  tenDichVu: string;
-  thoiGianBatDau: string;
-  thoiGianHetHan: string;
-  trangThai: string;
-  nguonCap: string;
-}
+import { ProvideNumberType } from "../../share/provideInterface";
 
 export const fetDataProvideNumber = createAsyncThunk<ProvideNumberType[]>(
   "ProvideNumber/fetDataProvideNumber",

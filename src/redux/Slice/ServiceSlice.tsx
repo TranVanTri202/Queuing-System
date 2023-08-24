@@ -7,14 +7,7 @@ import {
   doc,
 } from "firebase/firestore";
 import apiFirebase from "../../Firebase/FirebaseConfig";
-
-export interface ServiceType {
-  id?: string;
-  maDichvu: string;
-  tenDichvu: string;
-  trangThai?: string;
-  moTa: string;
-}
+import { ServiceType } from "../../share/serviceInterface";
 
 export const fetchDataService = createAsyncThunk<ServiceType[]>(
   "service/fetchDataDevice",

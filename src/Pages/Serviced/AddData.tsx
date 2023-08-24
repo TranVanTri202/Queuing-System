@@ -1,14 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../../assets/styles/addData.css";
 import { useState } from "react";
-import { ServiceType, addService } from "../../redux/Slice/ServiceSlice";
+import { addService } from "../../redux/Slice/ServiceSlice";
 import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import Navtop from "../../components/Route/Navtop";
-import { DiaryType, addDataDiary } from "../../redux/Slice/DiarySlice";
+import { addDataDiary } from "../../redux/Slice/DiarySlice";
+import { ServiceType } from "../../share/serviceInterface";
+import { DiaryType } from "../../share/diaryInterface";
 const AddDataService = () => {
+  //lấy dữ liệu người dùng khi đă đăng nhập
   const accountStorage = localStorage.getItem("account");
   var account = accountStorage ? JSON.parse(accountStorage) : "Chưa đăng nhập";
+
   const time = new Date();
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,12 +22,14 @@ const AddDataService = () => {
     trangThai: "Hoạt động",
     moTa: "",
   });
+  //đưa vào nhật kí người dùng khi xử lí hành động nào đó
   const diary: DiaryType = {
     userName: account.username,
     time: time.toLocaleString(),
     ipAddress: "192.168.10",
     action: `Thêm mới dịch vụ ${dataInfo.maDichvu}`,
   };
+
   const handleAdd = async () => {
     await dispatch(addService(dataInfo));
     dispatch(addDataDiary(diary));

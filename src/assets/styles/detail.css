@@ -39,3 +39,21 @@
   margin-top: 8px;
   margin-bottom: 13px;
 }
+
+.detail-service .text {
+  margin-top: 15px;
+}
+.detail-service b {
+  margin-right: 20px;
+}
+.detail-service b:last-child() {
+  margin-right: 40px;
+}
+
+.detail-service .btn-quitat {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: transparent;
+  border: 1px solid #d4d4d7;
+  padding: 7px 20px;
+}

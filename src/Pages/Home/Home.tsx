@@ -25,6 +25,7 @@ const Home = () => {
     var account = JSON.parse(accountStored);
   }
   const img = require(`../../${account.image}`);
+
   return (
     <>
       <div className="home">
@@ -193,9 +194,9 @@ const Home = () => {
             <h3>Thông báo</h3>
           </div>
           <div className="bottom-notify">
-            {data.map((item) => {
+            {data.map((item, index) => {
               return (
-                <div className="text-notify">
+                <div key={index} className="text-notify">
                   <b>Người dùng: {item.tenKhachHang}</b> <br />
                   <span>Thời gian nhận số: {item.thoiGianBatDau} </span>
                 </div>
