@@ -3,10 +3,27 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect } from "react";
 import { fetDataDiary } from "../../redux/Slice/DiarySlice";
 import { Table } from "antd";
+import { parse } from "date-fns";
 
-const TableData = () => {
+interface tableProps {
+  text: string;
+  startDate: Date;
+  endDate: Date;
+}
+const TableData: React.FC<tableProps> = ({ text, startDate, endDate }) => {
   const dispatch: AppDispatch = useDispatch();
   const data = useSelector((state: RootState) => state.Diary.dataDiary);
+  console.log(startDate);
+
+  //loc du lieu
+  const filter = data.filter(
+    (item) =>
+      (text === "" || item.userName.includes(text)) &&
+      (!startDate ||
+        startDate <= parse(item.time, "HH:mm:ss dd/MM/yyyy", new Date())) &&
+      (!endDate ||
+        endDate >= parse(item.time, "HH:mm:ss dd/MM/yyyy", new Date()))
+  );
 
   useEffect(() => {
     dispatch(fetDataDiary());
@@ -39,7 +56,7 @@ const TableData = () => {
       <Table
         rowKey={(record) => record.id!}
         columns={columns}
-        dataSource={data}
+        dataSource={filter}
         pagination={{ pageSize: 7 }}
       />
     </div>

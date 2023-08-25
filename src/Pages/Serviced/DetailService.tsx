@@ -7,19 +7,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect, useState } from "react";
 import { fetchDataService } from "../../redux/Slice/ServiceSlice";
-import { Table } from "antd";
+import { DatePicker, Table } from "antd";
 import { ServiceType } from "../../share/serviceInterface";
 const DetailService = () => {
   const navigate = useNavigate();
   const { id } = useParams(); //lấy id trên url để xử lí
   const dispatch: AppDispatch = useDispatch();
+  const [service, setService] = useState<ServiceType>();
+  const [status, setStatus] = useState<string>("Tất cả");
+  const [stt, setStt] = useState<string>("");
   const dataService = useSelector(
     (state: RootState) => state.Service.dataService
   );
+
   const dataProvide = useSelector(
     (state: RootState) => state.Provide.dataProvide
   );
-  const [service, setService] = useState<ServiceType>();
+
+  //loc du lieu
+  const filter = dataProvide.filter(
+    (item) =>
+      (status === "Tất cả" || item.trangThai === status) &&
+      (stt === "" || item.stt.includes(stt))
+  );
 
   useEffect(() => {
     dispatch(fetchDataService);
@@ -86,12 +96,64 @@ const DetailService = () => {
         </div>
 
         <div className="main-right-service">
-          <div className=""></div>
+          <div className="search">
+            <div className="search-left">
+              <div className="item-2">
+                <label htmlFor="">Tình trạng</label> <br />
+                <select
+                  style={{ width: "140px" }}
+                  onChange={(e) => setStatus(e.target.value)}
+                >
+                  <option value="Tất cả">Tất cả</option>
+                  <option value="Đang chờ">Đang chờ</option>
+                  <option value="Đã sử dụng">Đã sử dụng</option>
+                  <option value="Bỏ qua">Bỏ qua</option>
+                </select>
+              </div>
+
+              <div className="item-2">
+                <div className="item-2">
+                  <label htmlFor="">Chọn thời gian</label> <br />
+                  <div className="input-time" style={{ display: "flex" }}>
+                    <DatePicker
+                      style={{
+                        height: "35px",
+                        marginTop: "10px",
+                        marginRight: "5px",
+                      }}
+                      format="DD/MM/YYYY"
+                    />
+                    <i
+                      className="bi bi-caret-right-fill"
+                      style={{ marginTop: "20px" }}
+                    ></i>
+                    <DatePicker
+                      style={{ height: "35px", marginTop: "10px" }}
+                      format="DD/MM/YYYY"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="search-right">
+              <label htmlFor="">Từ khóa</label>
+              <br />
+              <div className="input-search" style={{ width: "200px" }}>
+                <input
+                  style={{ width: "100px" }}
+                  type="text"
+                  placeholder="Nhập từ khóa"
+                  onChange={(e) => setStt(e.target.value)}
+                />
+                <i className="bi bi-search"></i>
+              </div>
+            </div>
+          </div>
           <Table
             rowKey={(revord) => revord.id!}
             columns={columns}
-            dataSource={dataProvide}
-            pagination={{ pageSize: 8 }}
+            dataSource={filter}
+            pagination={{ pageSize: 6 }}
           />
         </div>
         <div className="add-btn-detail">

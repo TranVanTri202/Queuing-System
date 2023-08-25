@@ -1,6 +1,11 @@
+import { DatePicker } from "antd";
 import Navtop from "../../components/Route/Navtop";
 import TableData from "./TableData";
+import { useState } from "react";
 const Diary = () => {
+  const [text, setText] = useState<string>("");
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
   return (
     <div className="main">
       <Navtop labelFirst="Cài đặt hệ thống" lableSecond="Nhật ký hoạt động" />
@@ -8,27 +13,44 @@ const Diary = () => {
         <div className="table-left">
           <div className="search">
             <div className="search-left">
-              <div className="item-1">
-                <label htmlFor="">Trạng thái hoạt động</label> <br />
-                <select name="" id="">
-                  <option value="Tất cả">Tất cả</option>
-                  <option value="Hoạt động">Hoạt động</option>
-                  <option value="Ngưng hoạt động">Ngưng hoạt động</option>
-                </select>
+              <div className="item-2">
+                <label htmlFor="">Chọn thời gian</label> <br />
+                <div className="input-time">
+                  <DatePicker
+                    style={{
+                      height: "35px",
+                      marginTop: "10px",
+                      marginRight: "5px",
+                    }}
+                    format="DD/MM/YYYY"
+                    onChange={(date) =>
+                      setStartDate(date ? date.toDate() : null)
+                    }
+                  />
+                  <DatePicker
+                    style={{ height: "35px" }}
+                    onChange={(date) => setEndDate(date ? date.toDate() : null)}
+                    format="DD/MM/YYYY"
+                  />
+                </div>
               </div>
             </div>
             <div className="search-right">
               <label htmlFor="">Từ khóa</label>
               <br />
               <div className="input-search">
-                <input type="text" placeholder="Nhập từ khóa" />
+                <input
+                  onChange={(e) => setText(e.target.value)}
+                  type="text"
+                  placeholder="Nhập từ khóa"
+                />
                 <i className="bi bi-search"></i>
               </div>
             </div>
           </div>
           <div className="table-data">
             {/* table */}
-            <TableData />
+            <TableData startDate={startDate!} endDate={endDate!} text={text} />
             {/* table */}
           </div>
         </div>

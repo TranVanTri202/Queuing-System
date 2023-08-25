@@ -2,48 +2,27 @@ import "../../assets/styles/info.css";
 
 import imgCamera from "../../assets/imgs/img-icon/Camera.png";
 import Navtop from "../../components/Route/Navtop";
-import { AppDispatch, RootState } from "../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchDataAcount, updateAccount } from "../../redux/Slice/AccountSlice";
-import { useState, useEffect } from "react";
-import { AccountType } from "../../share/accountInterface";
+import { AppDispatch } from "../../redux/store";
+import { useDispatch } from "react-redux";
+import { fetchDataAcount } from "../../redux/Slice/AccountSlice";
+import { useEffect } from "react";
 const Information = () => {
   const dispatch: AppDispatch = useDispatch();
-  const dataAccount = useSelector(
-    (state: RootState) => state.Account.dataAccount
-  );
+
   const storedAccount = localStorage.getItem("account");
   if (storedAccount) {
     var account = JSON.parse(storedAccount);
   }
   const img = require(`../../${account.image}`);
-
   const toggleFolderVisibility = () => {
     const fileInput = document.getElementById("fileInput");
     if (fileInput) {
       fileInput.click();
     }
   };
-  const [dataInfo, setDataInfo] = useState<AccountType>({
-    image: "",
-  });
-  const UpdateImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      setTimeout(() => {
-        setDataInfo((prev) => ({
-          ...prev,
-          image: `assets/imgs/img-admin/${selectedFile.name}`,
-        }));
-        dispatch(updateAccount(dataInfo));
-      }, 0);
-    }
-  };
 
   useEffect(() => {
     dispatch(fetchDataAcount());
-    const info = dataAccount.find((item) => item.id === account.id);
-    setDataInfo(info!);
   }, [dispatch]);
   // localStorage.removeItem("account");
   return (
@@ -97,12 +76,7 @@ const Information = () => {
           </div>
         </div>
       </div>
-      <input
-        id="fileInput"
-        type="file"
-        style={{ display: "none" }}
-        onChange={UpdateImg} // Listen for file selection changes
-      />
+      <input id="fileInput" type="file" style={{ display: "none" }} />
     </div>
   );
 };

@@ -81,7 +81,7 @@ const Menu = () => {
               className={activeItem === 5 ? "active" : ""}
               onClick={() => handleItemClick(5)}
             >
-              <IconSetting active={activeIcon} />
+              <i className="bi bi-person-fill-gear"></i>
               Quản lý tài khoản
             </li>
           </Link>
@@ -90,7 +90,7 @@ const Menu = () => {
               className={activeItem === 6 ? "active" : ""}
               onClick={() => handleItemClick(6)}
             >
-              <IconSetting active={activeIcon} />
+              <i className="bi bi-journal-medical"></i>
               Nhật kí người dùng
             </li>
           </Link>

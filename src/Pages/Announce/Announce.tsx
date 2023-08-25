@@ -23,6 +23,7 @@ const Device = () => {
                       marginTop: "10px",
                       marginRight: "5px",
                     }}
+                    format="DD/MM/YYYY"
                     onChange={(date) =>
                       setStarDate(date ? date.toDate() : null)
                     }
@@ -30,6 +31,7 @@ const Device = () => {
                   <DatePicker
                     style={{ height: "35px" }}
                     onChange={(date) => setEndDate(date ? date.toDate() : null)}
+                    format="DD/MM/YYYY"
                   />
                 </div>
               </div>

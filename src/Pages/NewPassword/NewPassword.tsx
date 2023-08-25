@@ -38,7 +38,7 @@ const Newpassword = () => {
       });
       setTimeout(() => {
         navigate("/");
-      }, 1500);
+      }, 2000);
     } else {
       messageApi.open({
         type: "warning",
