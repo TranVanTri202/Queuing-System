@@ -16,6 +16,7 @@ import { RootState } from "../../redux/store";
 import { useState } from "react";
 const Home = () => {
   const data = useSelector((state: RootState) => state.Provide.dataProvide);
+
   const [notify, setNotify] = useState<boolean>(false);
   const handleNotify = () => {
     setNotify(!notify);
@@ -26,6 +27,7 @@ const Home = () => {
   }
   const img = require(`../../${account.image}`);
 
+  const [typeChart, setTypeChart] = useState<string>("Ngày");
   return (
     <>
       <div className="home">
@@ -37,25 +39,31 @@ const Home = () => {
           <div className="box-total">
             <BoxHome
               img={box1}
-              total={"4.221"}
+              total={`${data.length}`}
               labeltext={"Đã cấp"}
               phantram={"32.41%"}
             />
             <BoxHome
               img={box2}
-              total={"3.721"}
+              total={`${
+                data.filter((item) => item.trangThai === "Đã sử dụng").length
+              }`}
               labeltext={"Đã sử dụng"}
               phantram={"32.41%"}
             />
             <BoxHome
               img={box3}
-              total={"486"}
+              total={`${
+                data.filter((item) => item.trangThai === "Đang chờ").length
+              }`}
               labeltext={"đang chờ"}
               phantram={"56.41%"}
             />
             <BoxHome
               img={box4}
-              total={"32"}
+              total={`${
+                data.filter((item) => item.trangThai === "Bỏ qua").length
+              }`}
               labeltext={"đã bỏ qua"}
               phantram={"22.41%"}
             />
@@ -70,15 +78,19 @@ const Home = () => {
               <div>
                 <div className="choose">
                   <span>Xem theo</span>
-                  <select name="" id="">
-                    <option value="">Ngày</option>
-                    <option value="">Tháng</option>
-                    <option value="">Năm</option>
+                  <select
+                    name=""
+                    id=""
+                    onChange={(e) => setTypeChart(e.target.value)}
+                  >
+                    <option value="Ngày">Ngày</option>
+                    <option value="Tuần">Tuần</option>
+                    <option value="Tháng">Tháng</option>
                   </select>
                 </div>
               </div>
             </div>
-            <LineChartComponent />
+            <LineChartComponent typeChart={typeChart} />
           </div>
         </div>
         <div className="homeright">

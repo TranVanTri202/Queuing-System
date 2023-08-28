@@ -6,7 +6,6 @@ import IconDashboard from "../../assets/imgs/img-icon/IconDashboard";
 import IconMonitor from "../../assets/imgs/img-icon/IconMonitor";
 import IconChat from "../../assets/imgs/img-icon/Iconchat";
 import IconCapso from "../../assets/imgs/img-icon/IconCapso";
-import IconSetting from "../../assets/imgs/img-icon/IconSetting";
 const Menu = () => {
   const navigate = useNavigate();
 
