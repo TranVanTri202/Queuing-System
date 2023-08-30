@@ -1,5 +1,5 @@
 import { DatePicker } from "antd";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import TableData from "./TableData";
 import { useState } from "react";
 const Diary = () => {

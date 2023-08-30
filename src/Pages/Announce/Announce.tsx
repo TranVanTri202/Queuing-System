@@ -1,6 +1,6 @@
 import btnDown from "../../assets/imgs/img-icon/iconDown.png";
 import { DatePicker } from "antd";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import TableData from "../Announce/TableData";
 import { useState } from "react";
 const Device = () => {

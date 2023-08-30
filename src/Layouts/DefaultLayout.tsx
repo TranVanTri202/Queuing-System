@@ -1,4 +1,4 @@
-import Menu from "../components/Route/Menu";
+import Menu from "../components/Layout/Menu";
 
 interface childen {
   children: any;

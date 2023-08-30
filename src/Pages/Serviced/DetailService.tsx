@@ -1,7 +1,7 @@
 import "../../assets/styles/detail.css";
 import btnUpdate from "../../assets/imgs/img-icon/iconUpdate.png";
 import btnBack from "../../assets/imgs/img-icon/iconBack.png";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { addDevice } from "../../redux/Slice/deviceSlice";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import { addDataDiary } from "../../redux/Slice/DiarySlice";
 import { DeviceType } from "../../share/deviceInterface";
 import { DiaryType } from "../../share/diaryInterface";

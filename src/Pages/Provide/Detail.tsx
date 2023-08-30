@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect, useState } from "react";
 import { fetDataProvideNumber } from "../../redux/Slice/ProvideNumberSlice";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import { ProvideNumberType } from "../../share/provideInterface";
 const DetailProvide = () => {
   const navigate = useNavigate();

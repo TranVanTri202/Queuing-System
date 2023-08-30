@@ -1,7 +1,7 @@
 import "../../assets/styles/info.css";
 
 import imgCamera from "../../assets/imgs/img-icon/Camera.png";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { fetchDataAcount } from "../../redux/Slice/AccountSlice";

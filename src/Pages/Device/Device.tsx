@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import TableData from "./TableData";
 import btnAdd from "../../assets/imgs/img-icon/btnAdd.png";
 import { ChangeEvent, useState } from "react";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 const Device = () => {
   const [statusActive, setStatusActive] = useState<string>("Tất cả");
   const [statusCornect, setStatusCornect] = useState<string>("Tất cả");

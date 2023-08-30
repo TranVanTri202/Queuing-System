@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import btnAdd from "../../assets/imgs/img-icon/btnaddCapso.png";
 import TableData from "./TableData";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import { DatePicker } from "antd";
 import { useState } from "react";
 

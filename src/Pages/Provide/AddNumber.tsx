@@ -3,7 +3,7 @@ import btnUpdate from "../../assets/imgs/img-icon/iconBack.png";
 import "../../assets/styles/detail.css";
 import { ChangeEvent, useState } from "react";
 import ModalAdd from "./Modal";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { format, addDays } from "date-fns";

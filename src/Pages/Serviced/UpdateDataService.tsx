@@ -8,7 +8,7 @@ import {
 } from "../../redux/Slice/ServiceSlice";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import { addDataDiary } from "../../redux/Slice/DiarySlice";
 import { ServiceType } from "../../share/serviceInterface";
 import { DiaryType } from "../../share/diaryInterface";

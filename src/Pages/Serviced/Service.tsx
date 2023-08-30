@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import TableData from "./TableData";
 import btnAdd from "../../assets/imgs/img-icon/iconAddDichvu.png";
 import { DatePicker } from "antd";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import { ChangeEvent, useState } from "react";
 const Device = () => {
   const [status, setStatus] = useState<string>("Tất cả");

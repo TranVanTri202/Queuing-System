@@ -3,7 +3,7 @@ import "../../assets/styles/addData.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import { addAccount } from "../../redux/Slice/AccountSlice";
 import { message } from "antd";
 import { AccountType } from "../../share/accountInterface";

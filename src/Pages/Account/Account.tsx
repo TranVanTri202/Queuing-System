@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Navtop from "../../components/Route/Navtop";
+import Navtop from "../../components/Layout/Navtop";
 import btnAdd from "../../assets/imgs/img-icon/iconAddAcount.png";
 import TableData from "./TableData";
 import { useState } from "react";
